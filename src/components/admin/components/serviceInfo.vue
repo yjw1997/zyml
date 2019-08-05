@@ -165,7 +165,8 @@
     </el-tab-pane>
     <el-tab-pane label="支持操作"
                  name="five">无</el-tab-pane>
-    <el-tab-pane label="瓦片信息"
+    <el-tab-pane v-if="show"
+                 label="瓦片信息"
                  name="six">
       <div class="table p10">
         <el-table :data="tableData"
@@ -218,6 +219,10 @@ export default {
       default: () => {
         return []
       }
+    },
+    show: {
+      type: Boolean,
+      default: true
     }
   }
 }

@@ -129,15 +129,15 @@
             <el-button size="small"
                        type="info"
                        plain
-                       @click="handleDelete(scope.$index, scope.row)">修改</el-button>
+                       @click="write(scope.row.serId)">修改</el-button>
             <el-button size="small"
                        type="success"
                        plain
-                       @click="handleDelete(scope.$index, scope.row)">用户</el-button>
+                       @click="viewUser(scope.row.serId)">用户</el-button>
             <el-button size="small"
                        type="danger"
                        plain
-                       @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                       @click="deleteOne(scope.row.serId)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -172,274 +172,10 @@
       </div>
       <div v-show="active == 1">
         2、填写元数据
-        <el-tabs type="border-card">
-          <el-tab-pane label="基本信息">
-            <el-form ref="form"
-                     :model="form"
-                     inline
-                     label-width="130px"
-                     :rules="rules">
-              <el-form-item label="数据服务类型："
-                            prop="type">
-                <el-select v-model="form.type"
-                           placeholder="--请选择--"
-                           style="width:200px">
-                  <el-option label="ADDServer"
-                             value="0"></el-option>
-                  <el-option label="CSW"
-                             value="1"></el-option>
-                  <el-option label="GPServer"
-                             value="2"></el-option>
-                </el-select>
-              </el-form-item>
-              <el-form-item label="发布日期：">
-                <el-date-picker v-model="form.ReleaseDate"
-                                style="width:200px;"
-                                type="date"
-                                range-separator="-"
-                                value-format='yyyy-MM-dd'
-                                placeholder="选择日期时间">
-                </el-date-picker>
-              </el-form-item>
-              <el-form-item label="服务类型版本：">
-                <el-input v-model="form.version"></el-input>
-              </el-form-item>
-              <el-form-item label="发布单位："
-                            prop="unit">
-                <el-input v-model="form.unit"></el-input>
-              </el-form-item>
-              <el-form-item label="服务名："
-                            prop="version">
-                <el-input v-model="form.version"></el-input>
-              </el-form-item>
-              <el-form-item label="关键词："
-                            prop="keywork">
-                <el-input v-model="form.keywork"></el-input>
-              </el-form-item>
-              <el-form-item label="服务别名："
-                            prop="alias">
-                <el-input v-model="form.alias"></el-input>
-              </el-form-item>
-              <el-form-item label="上传缩略图："
-                            prop="thumbnail">
-                <el-upload class="upload-demo"
-                           action="http://192.168.2.121:9088/upload"
-                           :on-preview="handlePreview"
-                           :on-remove="handleRemove"
-                           :before-remove="beforeRemove"
-                           multiple
-                           :data="uploadata"
-                           :limit="3"
-                           :on-exceed="handleExceed"
-                           :file-list="fileList">
-                  <el-button size="small"
-                             type="primary">点击上传</el-button>
-                  <div slot="tip"
-                       class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
-                </el-upload>
-              </el-form-item>
-              <el-form-item label="摘要："
-                            prop="Summary">
-                <el-input v-model="form.Summary"
-                          type="textarea"></el-input>
-              </el-form-item>
-            </el-form>
-          </el-tab-pane>
-          <el-tab-pane label="发布单位信息">
-            <el-form ref="form"
-                     :model="form"
-                     inline
-                     label-width="130px"
-                     :rules="rules">
-              <el-form-item label="单位名称："
-                            prop="unitName">
-                <el-input v-model="form.unitName"></el-input>
-              </el-form-item>
-              <el-form-item label="城市：">
-                <el-input v-model="form.city"></el-input>
-              </el-form-item>
-              <el-form-item label="单位地址：">
-                <el-input v-model="form.unitAddress"></el-input>
-              </el-form-item>
-              <el-form-item label="详细地址：">
-                <el-input v-model="form.detailAddress"></el-input>
-              </el-form-item>
-              <el-form-item label="联系人：">
-                <el-input v-model="form.contact"></el-input>
-              </el-form-item>
-              <el-form-item label="邮编：">
-                <el-input v-model="form.ZipCode"></el-input>
-              </el-form-item>
-              <el-form-item label="联系人单位：">
-                <el-input v-model="form.ContactUnit"></el-input>
-              </el-form-item>
-              <el-form-item label="电话："
-                            prop="phone">
-                <el-input v-model="form.phone"></el-input>
-              </el-form-item>
-              <el-form-item label="国家：">
-                <el-input v-model="form.counity"></el-input>
-              </el-form-item>
-              <el-form-item label="传真：">
-                <el-input v-model="form.fax"></el-input>
-              </el-form-item>
-              <el-form-item label="省（直辖市）：">
-                <el-input v-model="form.province"></el-input>
-              </el-form-item>
-              <el-form-item label="电子邮箱：">
-                <el-input v-model="form.email"></el-input>
-              </el-form-item>
-            </el-form>
-          </el-tab-pane>
-          <el-tab-pane label="服务使用限制">
-            <el-form ref="form"
-                     :model="form"
-                     label-width="130px"
-                     :rules="rules">
-              <el-form-item label="访问限制：">
-                <el-input v-model="form.accessRestrictions"></el-input>
-              </el-form-item>
-              <el-form-item label="使用限制：">
-                <el-input v-model="form.useRestrictions"></el-input>
-              </el-form-item>
-            </el-form>
-          </el-tab-pane>
-          <el-tab-pane label="数据描述信息">
-            <el-form ref="form"
-                     :model="form"
-                     label-width="130px"
-                     :rules="rules">
-              <el-form-item label="空间参考系：">
-                <el-input v-model="form.ReferenceSystem"></el-input>
-              </el-form-item>
-              <el-form-item label="空间表示类型：">
-                <el-input v-model="form.RepresentationType"></el-input>
-              </el-form-item>
-              <el-form-item label="空间分辨率：">
-                <el-input v-model="form.Resolution"></el-input>
-              </el-form-item>
-              <el-form-item label="专题类型：">
-                <el-input v-model="form.ThematicType"></el-input>
-              </el-form-item>
-              <el-form-item label="其他说明：">
-                <el-input v-model="form.otherInstructions"></el-input>
-              </el-form-item>
-            </el-form>
-          </el-tab-pane>
-          <el-tab-pane label="操作描述">
-            <el-card class="box-card">
-              <div slot="header"
-                   class="clearfix">
-                <span>服务操作方式</span>
-                <el-button style="float: right; padding: 3px 0;color:red"
-                           type="text">删除</el-button>
-                <el-button style="float: right; padding: 3px 0"
-                           type="text">添加</el-button>
-              </div>
-              <el-table :data="tableData"
-                        border
-                        style="width: 100%">
-                <el-table-column prop="date"
-                                 label="操作名"
-                                 type="selection"
-                                 align="center"
-                                 width="55">
-                </el-table-column>
-                <el-table-column prop="date"
-                                 label="操作名"
-                                 align="center">
-                </el-table-column>
-                <el-table-column prop="name"
-                                 label="操作描述"
-                                 align="center">
-                </el-table-column>
-                <el-table-column prop="address"
-                                 label="分布式平台"
-                                 align="center">
-                </el-table-column>
-                <el-table-column prop="address"
-                                 label="访问地址"
-                                 align="center">
-                </el-table-column>
-              </el-table>
-            </el-card>
-            <el-card class="box-card">
-              <div slot="header"
-                   class="clearfix">
-                <span>方式参数说明</span>
-                <el-button style="float: right; padding: 3px 0;color:red"
-                           type="text">删除</el-button>
-                <el-button style="float: right; padding: 3px 0"
-                           type="text">添加</el-button>
-              </div>
-              <el-table :data="tableData2"
-                        border
-                        style="width: 100%">
-                <el-table-column prop="date"
-                                 label="操作名"
-                                 type="selection"
-                                 width="55"
-                                 align="center">
-                </el-table-column>
-                <el-table-column prop="date"
-                                 label="参数名"
-                                 align="center">
-                </el-table-column>
-                <el-table-column prop="name"
-                                 label="参数方向"
-                                 align="center">
-                </el-table-column>
-                <el-table-column prop="address"
-                                 label="参数描述"
-                                 align="center">
-                </el-table-column>
-                <el-table-column prop="address"
-                                 label="是否描述"
-                                 align="center">
-                </el-table-column>
-                <el-table-column prop="address"
-                                 label="是否可重复"
-                                 align="center">
-                </el-table-column>
-                <el-table-column prop="address"
-                                 label="取值访问"
-                                 align="center">
-                </el-table-column>
-              </el-table>
-            </el-card>
-          </el-tab-pane>
-          <el-tab-pane label="服务调用示例">
-
-            <el-card class="box-card">
-              <div slot="header"
-                   class="clearfix">
-                <span>卡片名称</span>
-                <el-button style="float: right; padding: 3px 0;color:red"
-                           type="text">删除</el-button>
-                <el-button style="float: right; padding: 3px 0"
-                           type="text">添加</el-button>
-              </div>
-              <el-table :data="tableData2"
-                        border
-                        style="width: 100%">
-                <el-table-column prop="date"
-                                 label="操作名"
-                                 type="selection"
-                                 width="55"
-                                 align="center">
-                </el-table-column>
-                <el-table-column prop="date"
-                                 label="操作地址"
-                                 align="center">
-                </el-table-column>
-                <el-table-column prop="name"
-                                 label="操作说明"
-                                 align="center">
-                </el-table-column>
-              </el-table>
-            </el-card>
-          </el-tab-pane>
-        </el-tabs>
+        <MetaData :form="form"
+                  :tableData="tableData"
+                  :tableData2="tableData2"
+                  :tableData3="tableData3"></MetaData>
       </div>
       <span slot="footer"
             class="dialog-footer">
@@ -459,7 +195,7 @@
                :visible.sync="ServicePreview"
                width="800px">
       <ServiceInfo :formnoPass='formnoPass'
-                   :tableData='tableData3'></ServiceInfo>
+                   :tableData='tableData4'></ServiceInfo>
       <span slot="footer"
             class="dialog-footer">
         <el-button type="primary"
@@ -501,15 +237,80 @@
                    @click="serFeedback =false">确 定</el-button>
       </span>
     </el-dialog>
+    <!-- //  点击用户按钮 -->
+    <el-dialog title="用户详情"
+               center
+               :visible.sync="viewUserS"
+               width="1000px">
+      <InputList :title="titles"
+                 :show="false"
+                 :process="Status"
+                 @sendMsg="sendMsg"></InputList>
+      <el-table :data="viewUserData"
+                border
+                style="width: 100%">
+        <el-table-column prop="UserName"
+                         label="用户名称"
+                         align='center'>
+        </el-table-column>
+        <el-table-column prop="UserUnit"
+                         label="用户单位"
+                         align='center'>
+        </el-table-column>
+        <el-table-column prop="appTime"
+                         label="申请时间"
+                         align='center'>
+        </el-table-column>
+        <el-table-column prop="appStatus"
+                         label="申请状态"
+                         align='center'>
+          <template slot-scope="scope">
+            <div v-if="scope.row.appStatus === '0'">已通过</div>
+            <div v-if="scope.row.appStatus === '1'">未通过</div>
+          </template>
+        </el-table-column>
+      </el-table>
+      <!-- //  分页 -->
+      <div class="page">
+        <el-pagination background
+                       layout="prev, pager, next"
+                       :total="viewUserTotal"
+                       :page-size="viewUserpageSize"
+                       @current-change="UserChangePage">
+        </el-pagination>
+      </div>
+    </el-dialog>
+    <!-- //  点击修改按钮 -->
+    <el-dialog title="修改元数据信息"
+               center
+               :visible.sync="writeShow"
+               width="1000px">
+      <MetaData :form="form2"
+                :tableData="tableData5"
+                :tableData2="tableData6"
+                :tableData3="tableData7"
+                :show1="true"
+                :show2="true"></MetaData>
+      <span slot="footer"
+            class="dialog-footer">
+        <el-button type="primary"
+                   @click="saveMetaData">确 定</el-button>
+        <el-button type="default"
+                   @click="writeShow = false">取 消</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
-import { getTableData, ServicePreview, getSerFeedbackTableData } from '@api/admin/myService'
+import { getTableData, ServicePreview, getSerFeedbackTableData, getViewUserData } from '@api/admin/myService'
 import ServiceInfo from '@admin/components/serviceInfo'
+import { async } from 'q'
+import InputList from '../../components/inputlist'
+import MetaData from '@admin/components/MetaData'
 export default {
   name: 'resService',
   components: {
-    ServiceInfo
+    ServiceInfo, InputList, MetaData
   },
   data () {
     return {
@@ -525,58 +326,37 @@ export default {
       dialogVisible: false,
       active: 0,
       serviceUrl: '',
-      rules: {
-        type: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-        ],
-        unit: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-        ],
-        version: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-        ],
-        keywork: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-        ],
-        alias: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-        ],
-        thumbnail: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-        ],
-        Summary: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-        ],
-        unitName: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-        ],
-        phone: [
-          { required: true, message: '请输入活动名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
-        ]
-      },
       tableData2: [],
-      fileList: [],
-      uploadata: {
-        suolue: '50*50'
-        // access_token:
-      },
       approval: '',
       service: '',
       selection: [],
       ServicePreview: false,
       formnoPass: {},
       tableData3: [],
+      tableData4: [],
       serFeedback: false,
-      serFeedbackTableData: []
+      serFeedbackTableData: [],
+      viewUserS: false,
+      titles: ['用户：', '申请状态：', '', '申请时间：'],
+      Status: [
+        { 'id': '', 'name': '全部' },
+        { 'id': '0', 'name': '已通过' },
+        { 'id': '1', 'name': '未通过' }
+      ],
+      viewUserData: [],
+      viewUserpageNum: 1,
+      viewUserpageSize: 3,
+      UserName: '',
+      appTime: '',
+      appStatus: '',
+      startTime: '',
+      endTime: '',
+      viewUserTotal: 7,
+      writeShow: false,
+      form2: {},
+      tableData5: [],
+      tableData6: [],
+      tableData7: []
     }
   },
   mounted: async function () {
@@ -597,7 +377,6 @@ export default {
       },
       deep: true
     }
-
   },
   methods: {
     //  获取表格数据
@@ -637,8 +416,8 @@ export default {
     //  点击分页按钮
     changeSize: async function (page) {
       console.log(page)
-      let pageSize = this.pageSize
-      let res = await getTableData({ page: 1, pageSize, approval: this.approval, service: this.service, flag: 0 })
+      this.page = page
+      let res = await getTableData({ page: this.page, pageSize: this.pageSize, approval: this.approval, service: this.service, flag: 0 })
       console.log(res)
       this.tableData = res.data.list
     },
@@ -646,10 +425,9 @@ export default {
     deleteData (selection, row) {
       this.selection = selection
     },
-    //  点击删除按钮
+    //  点击删除服务按钮
     deleteList: async function () {
       //  提取数组的id
-      // console.log(this.selection)
       if (this.selection.length === 0) return false
 
       let arr = this.selection.map((value, key, arr) => {
@@ -664,19 +442,8 @@ export default {
       })
       this.getTable()
     },
-    handleRemove (file, fileList) {
-      console.log(file, fileList)
-    },
-    handlePreview (file) {
-      console.log(file)
-    },
-    handleExceed (files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
-    },
-    beforeRemove (file, fileList) {
-      return this.$confirm(`确定移除 ${file.name}？`)
-    },
-    //  点击表格按钮事件
+
+    //  ----------------------------点击表格按钮事件----------------------
     //  预览
     preview: async function (id) {
       this.ServicePreview = true
@@ -691,9 +458,60 @@ export default {
       console.log(id)
       let res = await getSerFeedbackTableData({ id })
       console.log(res)
-      this.formnoPass = res.data[0]
+      this.serFeedbackTableData = res.data[0].data
+    },
+    //  删除
+    deleteOne: async function (id) {
+      console.log(id)
+      this.selection = []
+      this.selection.push(id)
+      this.$message({
+        message: '删除成功',
+        type: 'success'
+      })
+      this.selection = []
+      this.getTable()
+    },
+    //  修改
+    write: async function (id) {
+      this.writeShow = true
+    },
+    //  修改---点击保存
+    saveMetaData: async function () {
+      this.writeShow = false
+    },
+    //  用户
+    viewUser: async function (id) {
+      //  获取表格数据
+      // pageSize: this.pageSize, serName: this.serName, serType: this.serType, startTime: this.startTime, endTime: this.endTime
+      let res = await getViewUserData({ pageNum: this.viewUserpageNum, pageSize: this.viewUserpageSize, UserName: this.UserName, startTime: this.startTime, endTime: this.endTime, appStatus: this.appStatus })
+      this.viewUserS = true
+      console.log('我是用户数据', res)
+      this.viewUserData = res.data.list
+      this.viewUserTotal = res.data.total
+      // this.viewUserS = true
+      // console.log(id)
+    },
+    //  用户---点击搜索
+    sendMsg: async function (msg) {
+      console.log(msg)
+      this.UserName = msg.unit
+      this.appStatus = msg.process
+      this.startTime = msg.starTime || ''
+      this.endTime = msg.endTime || ''
+      let res = await getViewUserData({ pageNum: 1, pageSize: this.viewUserpageSize, UserName: this.UserName, startTime: this.startTime, endTime: this.endTime, appStatus: this.appStatus })
+      console.log(res)
+      this.viewUserData = res.data.list
+      this.total = res.data.total
+    },
+    //  用户---点击分页
+    UserChangePage: async function (page) {
+      console.log(page)
+      this.page = page
+      let res = await getViewUserData({ pageNum: this.viewUserpageNum, pageSize: this.viewUserpageSize, UserName: this.UserName, startTime: this.startTime, endTime: this.endTime, appStatus: this.appStatus })
+      console.log(res)
+      this.viewUserData = res.data.list
     }
-    
   }
 }
 </script>

@@ -228,6 +228,7 @@ export default {
         { id: '2', name: '代办' }
       ],
       tableData: [],
+      tableData2: [],
       pageSize: 3,
       total: 7,
       taskCreator: '',
@@ -235,7 +236,7 @@ export default {
       checkerStatus: '',
       startTime: '',
       endTime: '',
-      approvalData: true,
+      approvalData: false,
       noPassShowData: false,
       passShowData: false,
       showTime: '',
@@ -248,7 +249,9 @@ export default {
     showTime: async function (newVal, oldVal) {
       //  监听<!-- //  代办 -->
       if (this.approvalData === true) {
-
+        let res = await getNoPassShowData({ id: this.showTime })
+        console.log(res)
+        this.formnoPass = res.data[0]
       } else if (this.noPassShowData === true) {
         //  监听未通过
         let res = await getNoPassShowData({ id: this.showTime })

@@ -24,3 +24,11 @@ export const getSerFeedbackTableData = data => {
     params: data
   })
 }
+//  用户---获取表格数据
+export const getViewUserData = data => {
+  return service({
+    url: '/getViewUserData',
+    method: 'get',
+    params: data
+  })
+}

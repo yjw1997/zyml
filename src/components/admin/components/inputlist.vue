@@ -104,7 +104,6 @@ export default {
       }
       // 子组件向父组件传值
       this.$emit('sendMsg', this.formInline)
-      // console.log(this.formInline)
     }
   }
 }

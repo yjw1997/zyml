@@ -1,16 +1,18 @@
-import { util } from '../util'
+import {
+  util
+} from '../util'
 import Mock from 'mockjs'
 var Random = Mock.Random
 
-//  --------------------------我的服务------------------------------------------------------
-//  获取表格数据
 export const GET = {
+  //  --------------------------我的服务------------------------------------------------------
+  //  获取表格数据
   //  获取表格数据,点击搜索，点击分页
   '/taskData': (req, res) => {
     let url = req.url
-    let page = util.getQueryString(url, 'page') // 当前页数3
+    let page = util.getQueryString(url, 'page') // 当前页数
     console.log('page', page)
-    let pageSize = util.getQueryString(url, 'pageSize') // 返回条数3
+    let pageSize = util.getQueryString(url, 'pageSize') // 返回条数
     console.log('pageSize', pageSize)
     //  点击搜索按钮判断传入条件
     let approval = util.getQueryString(url, 'approval')
@@ -365,13 +367,85 @@ export const GET = {
     let _data = []
     _data.push(
       Mock.mock({
-        'fbName': Random.cname(),
-        'fbUnit|1': ['福州规划局', '福州数办局'],
-        'fbTel': Random.telephone(),
-        // 'fbTime': Random 
+        'data|1-4': [{
+          // 'content': [
+          'fbName|1': [Random.cname(), Random.cname(), Random.cname(), Random.cname(), Random.cname(), Random.cname(), Random.cname(), Random.cname()],
+          'fbUnit|1': ['福州规划局', '福州数办局'],
+          'fbTel': /^1[3456789]\d{9}$/,
+          'fbTime': Random.datetime('yyyy-MM-dd'),
+          'fbContent|1': ['系统稳定', '有点热']
+          // ]
+        }]
       })
     )
     return _data
+  },
+  //  点击用户---获取表格数据
+  '/getViewUserData': (req, res) => {
+    let url = req.url
+    let pageNum = util.getQueryString(url, 'pageNum') // 当前页数3
+    console.log('pageNum', pageNum)
+    let pageSize = util.getQueryString(url, 'pageSize') // 返回条数3
+    console.log('pageSize', pageSize)
+    // //  搜索接收的参数
+    let UserName = util.getQueryString(url, 'UserName')
+    let appStatus = util.getQueryString(url, 'appStatus')
+    let startTime = util.getQueryString(url, 'startTime')
+    let endTime = util.getQueryString(url, 'endTime')
+    // //  三元表达式判断是否传入值
+    UserName = (UserName === '') ? [Random.cname(), Random.cname(), Random.cname(), Random.cname(), Random.cname(), Random.cname(), Random.cname(), Random.cname(), Random.cname(), Random.cname()] : UserName
+    appStatus = (appStatus === '') ? [
+      '0', '1'
+    ] : appStatus
+
+    // //  时间范围单独做处理
+    let _data = []
+    let len = (1000 - pageSize * (pageNum - 1)) < pageSize ? (1000 - pageSize * (pageNum - 1)) : pageSize
+    let i = 0
+    for (i; i < len; i++) {
+      let viewUserTime = Random.datetime('yyyy-MM-dd')
+      if (endTime !== '') {
+        startTime = startTime.split('-').join('')
+        endTime = endTime.split('-').join('')
+        while ((viewUserTime.split('-').join('') < startTime) || (viewUserTime.split('-').join('') > endTime)) {
+          viewUserTime = Random.datetime('yyyy-MM-dd')
+        }
+      }
+      _data.push(
+        Mock.mock({
+          'UserName|1': UserName,
+          'UserUnit|1': ['福州委办局', '福州数字办'],
+          'appStatus|1': appStatus,
+          'appTime': viewUserTime
+        })
+      )
+    }
+    let data = {
+      'total': 7,
+      'list': _data,
+      'pageNum': 1,
+      'pageSize': 7,
+      'size': 7,
+      'startRow': 1,
+      'endRow': 7,
+      'pages': 1,
+      'prePage': 0,
+      'nextPage': 0,
+      'isFirstPage': true,
+      'isLastPage': true,
+      'hasPreviousPage': false,
+      'hasNextPage': false,
+      'navigatePages': 8,
+      'navigatepageNums': [
+        1
+      ],
+      'navigateFirstPage': 1,
+      'navigateLastPage': 1,
+      'firstPage': 1,
+      'lastPage': 1
+
+    }
+    return data
   },
   //  -----------------------我的任务-------------------------------------------------------
   //  获取表格数据
@@ -517,7 +591,8 @@ export const GET = {
     //  三元表达式判断是否传入值
     serName = (serName === '') ? ['cn_img_CGCS2000', 'MSZT', 'BJ', 'QD_WMS_20161021', 'SXQ_WMS_20161021', 'ZZ_WMS_20161021', 'XF_WMS_20161021'] : serName
     serType = (serType === '') ? [
-      '0', '1', '2', '3', '4', '5'] : serType
+      '0', '1', '2', '3', '4', '5'
+    ] : serType
 
     //  时间范围单独做处理
     let _data = []

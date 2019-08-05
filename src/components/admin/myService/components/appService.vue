@@ -85,22 +85,22 @@
                          label="操作"
                          width="300">
           <template slot-scope="scope">
-            <el-button @click.native.prevent="deleteRow(scope.$index, tableData)"
+            <el-button @click.native.prevent="preview(scope.row.serId)"
                        type="primary"
                        size="small">
               预览
             </el-button>
-            <el-button @click.native.prevent="deleteRow(scope.$index, tableData)"
+            <el-button @click.native.prevent="writeMetaData(scope.row.serId)"
                        type="info"
                        size="small">
               元数据
             </el-button>
-            <el-button @click.native.prevent="deleteRow(scope.$index, tableData)"
+            <el-button @click.native.prevent="comment(scope.row.serId)"
                        type="success"
                        size="small">
               评论
             </el-button>
-            <el-button @click.native.prevent="deleteRow(scope.$index, tableData)"
+            <el-button @click.native.prevent="deleteOne(scope.row.serId)"
                        type="danger"
                        size="small">
               退订
@@ -118,12 +118,66 @@
                      @current-change="changeSize">
       </el-pagination>
     </div>
+    <!-- //  点击服务预览按钮 -->
+    <el-dialog title="服务详情预览"
+               center
+               :visible.sync="ServicePreview"
+               width="800px">
+      <ServiceInfo :formnoPass='formnoPass'
+                   :show="false"
+                   :tableData='[]'></ServiceInfo>
+      <span slot="footer"
+            class="dialog-footer">
+        <el-button type="primary"
+                   @click="ServicePreview =false">确 定</el-button>
+      </span>
+    </el-dialog>
+    <!-- //  点击元数据按钮 -->
+    <el-dialog title="修改元数据信息"
+               center
+               :visible.sync="writeShow"
+               width="1000px">
+      <MetaData :form="form2"
+                :tableData="tableData5"
+                :tableData2="tableData6"
+                :tableData3="tableData7"
+                :show1="true"></MetaData>
+      <span slot="footer"
+            class="dialog-footer">
+        <el-button type="primary"
+                   @click="writeMetaDataSave">保 存</el-button>
+        <el-button type="default"
+                   @click="writeShow =false">取 消</el-button>
+      </span>
+    </el-dialog>
+    <!-- //  点击评论按钮 -->
+    <el-dialog title="评论"
+               center
+               :visible.sync="commentShow"
+               width="600px">
+      <el-input type="textarea"
+                v-model="commentContent"></el-input>
+      <el-checkbox v-model="checked">匿名评论</el-checkbox>
+      <span slot="footer"
+            class="dialog-footer">
+        <el-button type="primary"
+                   @click="commentSave">保 存</el-button>
+        <el-button type="default"
+                   @click="commentShow =false">取 消</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
-import { getTableData } from '@api/admin/myService'
+import { getTableData, ServicePreview } from '@api/admin/myService'
+import ServiceInfo from '@admin/components/serviceInfo'
+import MetaData from '@admin/components/MetaData'
+import { async } from 'q'
 export default {
   name: 'appService',
+  components: {
+    ServiceInfo, MetaData
+  },
   data () {
     return {
       formInline: {
@@ -131,15 +185,24 @@ export default {
         service: '0',
         change: '1'
       },
-      form: {
-
-      },
+      form: {},
       tableData: [],
       pageSize: 3,
       total: 7,
       approval: '',
       service: '',
-      selection: []
+      selection: [],
+      ServicePreview: false,
+      formnoPass: {},
+      writeShow: false,
+      form2: {},
+      tableData5: [],
+      tableData6: [],
+      tableData7: [],
+      commentShow: false,
+      iscomment: false,
+      commentContent: '',
+      checked: false
     }
   },
   mounted () {
@@ -217,6 +280,47 @@ export default {
         type: 'success'
       })
       this.getTable()
+    },
+    //  ----------------------------点击表格按钮事件----------------------
+    //  预览
+    preview: async function (id) {
+      this.ServicePreview = true
+      console.log(id)
+      let res = await ServicePreview({ id })
+      console.log(res)
+      this.formnoPass = res.data[0]
+    },
+    //  删除
+    deleteOne: async function (id) {
+      console.log(id)
+      this.selection = []
+      this.selection.push(id)
+      this.$message({
+        message: '删除成功',
+        type: 'success'
+      })
+      this.selection = []
+      this.getTable()
+    },
+    //  元数据
+    writeMetaData: async function (id) {
+      console.log(id)
+      this.writeShow = true
+    },
+    //  元数据--- 点击保存
+    writeMetaDataSave: async function () {
+      console.log(this.form2)
+    },
+    // 评论
+    comment: async function (id) {
+      if (this.iscomment) return false
+      console.log(id)
+      this.commentShow = true
+    },
+    //  评论---点击保存按钮
+    commentSave: async function () {
+      console.log(this.commentContent, this.iscomment, this.checked)//  评论内容 是否已经评论过  是否匿名评论
+      this.commentShow = false
     }
   }
 }
