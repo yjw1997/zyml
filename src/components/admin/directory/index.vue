@@ -22,16 +22,14 @@
                        circle></el-button>
           </el-input>
         </div>
-        <div class="ib">
-          <el-tree :data="treeData"
-                   :props="defaultProps"
-                   @node-click="handleNodeClick"
-                   show-checkbox
-                   :default-expanded-keys="[2, 3]"
-                   check-strictly
-                   ref="tree"
-                   node-key="id"></el-tree>
-        </div>
+        <el-tree :data="treeData"
+                 :props="defaultProps"
+                 @node-click="handleNodeClick"
+                 show-checkbox
+                 :default-expanded-keys="[2, 3]"
+                 check-strictly
+                 ref="tree"
+                 node-key="id"></el-tree>
       </div>
     </div>
     <div class="right">
@@ -171,7 +169,7 @@ export default {
   },
   mounted: async function () {
     this.getDirectoryData()
-    let res = await getDirectoryDataInfo({ id: 1 })
+    let res = await getDirectoryDataInfo({ id: 1, pageSize: this.pageSize })
     console.log(res)
     this.tableData = res.data.list
     this.total = res.data.total

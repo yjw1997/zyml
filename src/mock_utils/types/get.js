@@ -777,7 +777,7 @@ export const GET = {
     let url = req.url
     let id = util.getQueryString(url, 'id')
     let _data = []
-    let len = 7
+    let len = 3
     let i = 0
     for (i; i < len; i++) {
       _data.push(
@@ -796,7 +796,7 @@ export const GET = {
       )
     }
     let data = {
-      'total': len,
+      'total': 7,
       'list': _data,
       'pageNum': 1,
       'pageSize': 3,
