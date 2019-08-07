@@ -328,5 +328,9 @@ export default {
 <style lang="less" scoped>
 #appService-head {
   padding: 10px;
+  // background-color: #00ffff;
+}
+#appService {
+  // .ib();
 }
 </style>

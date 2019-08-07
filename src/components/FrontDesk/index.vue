@@ -1,16 +1,16 @@
 <template>
   <div class="body">
-    <Nav></Nav>
+    <!-- <Nav></Nav> -->
     <router-view></router-view>
 
   </div>
 </template>
 <script>
-import Nav from '@fc/nav'
+// import Nav from '@fc/nav'
 export default {
   name: 'index',
   components: {
-    Nav
+    // Nav
   },
   mounted () {
     // this.$router.push({path: '/index/home'})

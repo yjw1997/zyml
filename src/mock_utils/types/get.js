@@ -646,5 +646,180 @@ export const GET = {
 
     }
     return data
+  },
+  // -------------------------目录管理-----------------------------------------------、
+  //  获取目录tree数据
+  '/getTreeData': (req, res) => {
+    // let url = req.url
+    // let page = util.getQueryString(url, 'pageNum') // 当前页数3
+    // console.log('pageNum', page)
+    // let pageSize = util.getQueryString(url, 'pageSize') // 返回条数3
+    // console.log('pageSize', pageSize)
+    let _data = [{
+      id: 1,
+      label: '来源分类',
+      children: [{
+          id: 2,
+          label: '数字办'
+        },
+        {
+          id: 3,
+          label: '环保局'
+        },
+        {
+          id: 4,
+          label: '气象局'
+        },
+        {
+          id: 5,
+          label: '水利局'
+        },
+        {
+          id: 6,
+          label: '交管局'
+        },
+        {
+          id: 7,
+          label: '公安局'
+        }
+      ]
+    }, {
+      id: 8,
+      label: '主题分类',
+      children: [{
+          id: 9,
+          label: '基础地理'
+        },
+        {
+          id: 10,
+          label: '城市建设'
+        },
+        {
+          id: 11,
+          label: '经济金融'
+        },
+        {
+          id: 12,
+          label: '资源环境'
+        },
+        {
+          id: 13,
+          label: '教育科技'
+        }
+      ]
+    }]
+    return _data
+  },
+  //  获取上级目录信息
+  '/getPreviousDirectoryData': (req, res) => {
+    let _data = [{
+        id: 1,
+        name: '数字办'
+      },
+      {
+        id: 2,
+        name: '环保局'
+      },
+      {
+        id: 3,
+        name: '气象局'
+      },
+      {
+        id: 4,
+        name: '水利局'
+      },
+      {
+        id: 5,
+        name: '交管局'
+      },
+      {
+        id: 6,
+        name: '公安局'
+      },
+      {
+        id: 7,
+        name: '基础地理'
+      },
+      {
+        id: 8,
+        name: '城市建设'
+      },
+      {
+        id: 9,
+        name: '经济金融'
+      },
+      {
+        id: 10,
+        name: '资源环境'
+      },
+      {
+        id: 11,
+        name: '教育科技'
+      }
+    ]
+    return _data
+  },
+  // 添加目录点击保存按钮
+  '/getAddDirectorySave': (req, res) => {
+    // let url = req.url
+    // let page = util.getQueryString(url, 'pageNum') // 当前页数3
+    // console.log('pageNum', page)
+    // let pageSize = util.getQueryString(url, 'pageSize') // 返回条数3
+    // console.log('pageSize', pageSize)
+    return '添加成功'
+  },
+  //  删除目录
+  '/getDeleteDirectory': (req, res) => {
+    return '删除成功'
+  },
+  //  获取目录数据信息
+  '/Catalog/selectByID': (req, res) => {
+    let url = req.url
+    let id = util.getQueryString(url, 'id')
+    let _data = []
+    let len = 7
+    let i = 0
+    for (i; i < len; i++) {
+      _data.push(
+        Mock.mock({
+          'id|1-100': 100,
+          'unitCode|1': ['福州市马尾区交通局', '福州市委办局', '福州市代办局', '福州市交通局'],
+          'name|1': ['福州市马尾区交通局', '福州市委办局', '福州市代办局', '福州市交通局'],
+          'description': Random.sentence(2),
+          'supplier|1': ['福州市马尾区交通局', '福州市委办局', '福州市代办局', '福州市交通局'],
+          'maintain|1': ['福州市马尾区交通局', '福州市委办局', '福州市代办局', '福州市交通局'],
+          'createDate': Random.datetime('yyyy-MM-dd H:m:s'),
+          'updateDate': Random.datetime('yyyy-MM-dd H:m:s'),
+          'keyword': Random.cparagraph(2),
+          'checkerStatus': 0
+        })
+      )
+    }
+    let data = {
+      'total': len,
+      'list': _data,
+      'pageNum': 1,
+      'pageSize': 3,
+      'size': 7,
+      'startRow': 1,
+      'endRow': 7,
+      'pages': 3,
+      'prePage': 0,
+      'nextPage': 0,
+      'isFirstPage': true,
+      'isLastPage': true,
+      'hasPreviousPage': false,
+      'hasNextPage': false,
+      'navigatePages': 8,
+      'navigatepageNums': [
+        1
+      ],
+      'navigateFirstPage': 1,
+      'navigateLastPage': 1,
+      'firstPage': 1,
+      'lastPage': 1
+
+    }
+    return data
   }
 }

@@ -9,4 +9,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+#serviceTree {
+  width: 200px;
+  .ib;
+  height: 100%;
+}
 </style>

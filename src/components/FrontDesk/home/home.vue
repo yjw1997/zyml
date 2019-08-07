@@ -475,20 +475,20 @@ export default {
   background-color: #d3dce6;
 }
 .lbimg1 {
-  background: url("../../../../static/img/index/dismap.png") center center
-    no-repeat;
-  background-size: cover;
+  // background: url("../../../../static/img/index/dismap.png") center center
+  //   no-repeat;
+  // background-size: cover;
 }
-.lbimg2 {
-  background: url("../../../../static/img/index/ditamap2.jpg") center center
-    no-repeat;
-  background-size: cover;
-}
-.lbimg3 {
-  background: url("../../../../static/img/index/plataplication3.png") center
-    center no-repeat;
-  background-size: cover;
-}
+// .lbimg2 {
+//   background: url("../../../../static/img/index/ditamap2.jpg") center center
+//     no-repeat;
+//   background-size: cover;
+// }
+// .lbimg3 {
+//   background: url("../../../../static/img/index/plataplication3.png") center
+//     center no-repeat;
+//   background-size: cover;
+// }
 .desciption {
   font-size: 16px;
   padding-top: 15px;

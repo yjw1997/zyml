@@ -519,4 +519,7 @@ export default {
 #resService-head {
   padding: 10px;
 }
+#resService {
+  .ib();
+}
 </style>
