@@ -1,9 +1,8 @@
 //  后台路由
-
 export const admin = [{
   path: '/admin',
   name: 'info',
-  component: resolve => require(['@/components/admin/info'], resolve),
+  component: resolve => require(['@admin/info'], resolve),
   children: [
     //  我的任务
     {
