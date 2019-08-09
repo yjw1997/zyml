@@ -1,7 +1,10 @@
 <template>
   <div class="footer">
 
-    <p>使用条款 | 主办：贵州省测绘资料档案馆 地址：贵阳市云岩区中华北路191号 邮编：1550004 电话：0851-86858250 | 技术支持:北京新兴华安智慧科技有限公司</p>
+    <p>Copyright 2013 福州市人民政府All Rights Reserved</p>
+    <p>福州市“数字福州”建设领导小组办公室 承办</p>
+    <p>深圳航天智慧城市系统技术研究院（福建分院） 技术支持</p>
+    <p>审图号：闽S[2016] 5号 备案号：闽ICP备11009988号</p>
   </div>
 </template>
 <script>
@@ -13,9 +16,9 @@ export default {
 .footer {
   padding: 30px;
   text-align: center;
-  color: #666;
+  color: #000204;
   text-decoration: none;
-  background-color: #f1f1f1;
-
+  height: 180px;
+  background: rgba(0, 2, 4, 0.75);
 }
 </style>

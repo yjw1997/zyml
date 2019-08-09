@@ -1,39 +1,66 @@
 <template>
   <div class="myNav">
-    <img src="@static/img/frontdesk/logo.png"
-         alt=""
-         style="; width:30px;height:30px">
-    <div class="navTitle">天地图·福州</div>
-    <div class="ib navTitle2">时空信息云平台</div>
+    <div class="title">
+      <img src="@static/img/frontdesk/logo.png">
+      <img src="@static/img/frontdesk/tdtTitle.png" />
+      <img src="@static/img/frontdesk/tdtName.png" />
+    </div>
+    <div class="search">
+      <el-input v-model="searchContent"
+                placeholder="请输入搜索关键字"
+                style="width: 200px"></el-input>
+      <el-button>搜索</el-button>
+    </div>
+    <div class="ib logn"> <span>登录</span> <span class="pzy"></span> <span>注册</span> </div>
+    <div class="ib fr bc2"><img src="@static/img/frontdesk/bc2.png"
+           width="100%"
+           height="100%" /></div>
+
   </div>
 </template>
 <script>
 export default {
-  name: 'myNav'
+  name: 'myNav',
+  data () {
+    return {
+      searchContent: ''
+    }
+  }
 }
 </script>
 <style lang="less" scoped>
 .myNav {
-  width: 100%;
-  padding: 15px 0px;
-  vertical-align: middle;
+  width: 1920px;
+  padding: 32px 0px 25px 0px;
   line-height: 32px;
-  .navTitle {
+  position: relative;
+  border-bottom: 1px solid #bababa;
+  .title {
+    position: relative;
+    margin-left: 365px;
+    .psx();
     .ib();
-    height: 38px;
-    font-size: 24px;
-    font-family: "20-";
-    font-weight: 400;
-    color: rgba(1, 134, 230, 1);
-    line-height: 34px;
+    img {
+      vertical-align: middle;
+      margin-left: 23px;
+    }
   }
-  .navTitle2 {
-    height: 28px;
-    font-size: 20px;
-    font-family: FZCQJW--GB1-0;
-    font-weight: 400;
-    color: rgba(51, 51, 51, 1);
-    line-height: 34px;
+  .search {
+    .ib();
+    z-index: 2;
+    margin-left: 302px;
+    position: absolute;
+    top: 46px;
+  }
+  .logn {
+    z-index: 2;
+    font-size: 14px;
+    position: absolute;
+    right: 346px;
+    top: 50px;
+  }
+  .bc2 {
+    z-index: -2;
   }
 }
 </style>
