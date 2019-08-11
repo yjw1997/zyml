@@ -7,11 +7,11 @@
              @select="handleSelect">
       <el-menu-item index="1">
         <router-link class="a"
-                     to="">首页</router-link>
+                     to="/index/home">首页</router-link>
       </el-menu-item>
       <el-menu-item index="2">
         <router-link class="a"
-                     to="">服务目录</router-link>
+                     to="/index/service">服务目录</router-link>
       </el-menu-item>
       <el-menu-item index="3">
         <router-link class="a"
@@ -31,7 +31,7 @@
       </el-menu-item>
       <el-menu-item index="7">
         <router-link class="a"
-                     to="">平台帮助</router-link>
+                     to="/index/help">平台帮助</router-link>
       </el-menu-item>
     </el-menu>
   </div>
@@ -42,7 +42,12 @@
 export default {
   data () {
     return {
-      activeIndex: '1'
+    }
+  },
+  props: {
+    activeIndex: {
+      type: String,
+      default: '1'
     }
   },
   methods: {
