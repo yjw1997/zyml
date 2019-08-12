@@ -11,14 +11,17 @@
       <el-breadcrumb-item>服务目录</el-breadcrumb-item>
     </el-breadcrumb>
     <div class="box tc">
-      <div class="w70 ib"
+      <div class="w65 ib"
            style="height: 100%">
         <div class="serviceLeft">
-          <el-card class="box-card">
-            <el-tree :data="data"
-                     :props="defaultProps"
-                     @node-click="handleNodeClick"></el-tree>
-          </el-card>
+          <div style="margin-left:50px">
+            <el-card class="box-card">
+              <el-tree :data="data"
+                       :props="defaultProps"
+                       @node-click="handleNodeClick"></el-tree>
+            </el-card>
+          </div>
+
         </div>
         <div class="serviceRight tl">
           <div class="p15">
@@ -35,42 +38,6 @@
               <el-tab-pane label="综合排序"
                            name="first">
                 <el-card :body-style="{ padding: '0px' }">
-                  <div class="serviceInfo">
-                    <div class="serContent">
-                      <img src="@static/img/frontdesk/23456.png"
-                           class="image">
-                      <span class="serTitle">服务类型：WMIS</span>
-                      <div><span>发布时间：2019-07-29</span><span class="pzy">浏览1234567人</span></div>
-                      <span>提供单位：福州市数字办</span>
-                    </div>
-                  </div>
-                  <div class="serviceInfo">
-                    <div class="serContent">
-                      <img src="@static/img/frontdesk/23456.png"
-                           class="image">
-                      <span class="serTitle">服务类型：WMIS</span>
-                      <div><span>发布时间：2019-07-29</span><span class="pzy">浏览1234567人</span></div>
-                      <span>提供单位：福州市数字办</span>
-                    </div>
-                  </div>
-                  <div class="serviceInfo">
-                    <div class="serContent">
-                      <img src="@static/img/frontdesk/23456.png"
-                           class="image">
-                      <span class="serTitle">服务类型：WMIS</span>
-                      <div><span>发布时间：2019-07-29</span><span class="pzy">浏览1234567人</span></div>
-                      <span>提供单位：福州市数字办</span>
-                    </div>
-                  </div>
-                  <div class="serviceInfo">
-                    <div class="serContent">
-                      <img src="@static/img/frontdesk/23456.png"
-                           class="image">
-                      <span class="serTitle">服务类型：WMIS</span>
-                      <div><span>发布时间：2019-07-29</span><span class="pzy">浏览1234567人</span></div>
-                      <span>提供单位：福州市数字办</span>
-                    </div>
-                  </div>
                   <div class="serviceInfo">
                     <div class="serContent">
                       <img src="@static/img/frontdesk/23456.png"
@@ -168,15 +135,17 @@
         </div>
       </div>
     </div>
+    <Footer></Footer>
   </div>
 </template>
 <script>
 import MyNav from '@fc/nav'
 import MyMenu from '@fc/myMenu'
+import Footer from '@fc/footer'
 export default {
   name: 'serviceDirectory',
   components: {
-    MyNav, MyMenu
+    MyNav, MyMenu, Footer
   },
   data () {
     return {
@@ -247,7 +216,7 @@ export default {
 <style lang="less" scoped>
 #serviceDirectory {
   .breadcrumb {
-    margin-left: 280px;
+    margin-left: 386px;
     display: inline-block;
     .p10();
   }
@@ -263,7 +232,6 @@ export default {
   .serviceRight {
     width: 80%;
     .ib();
-    height: 100%;
     .count {
       font-size: 14px;
       font-weight: 400;
@@ -284,10 +252,10 @@ export default {
       font-weight: 400;
       color: #666666;
       .ib();
+      padding: 5px;
       span {
         white-space: nowrap;
       }
-      .p15();
     }
   }
 }

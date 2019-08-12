@@ -16,12 +16,12 @@
               <img src="@static/img/frontdesk/announcement.png"
                    alt="">
               <div class="lcontnet">
-                <TimeInfo class="fl"></TimeInfo>
+                <TimeInfo class="fl mtop"></TimeInfo>
                 <div class="fl ml10 rcontent">
                   <div class="homeTitle">
                     天地图·福建数据更新公告
                   </div>
-                  <div class="rcc"> 第二届数字中国建设峰会志愿者全要素全流程演练将
+                  <div class="rcc">第二届数字中国建设峰会志愿者全要素全流程演练将
                     于29日举行，目前准备工作已就绪。</div>
                 </div>
               </div>
@@ -91,7 +91,8 @@
             </div>
           </el-tab-pane>
         </el-tabs>
-        <div class="more">更多>></div>
+        <div class="more"
+             @click="moreNews">更多>></div>
       </div>
     </div>
     <div class="box mt60 tc">
@@ -282,6 +283,14 @@ export default {
     return {
       activeName: 'first'
     }
+  },
+  methods: {
+    //  通知公告和业界资讯点击更多
+    moreNews () {
+      this.$router.push({
+        name: `moreNews`
+      })
+    }
   }
 }
 </script>
@@ -351,8 +360,8 @@ export default {
 }
 .list li {
   .tl();
-  padding: 15px 10px;
-  width: 640px;
+  padding: 15px 0px;
+  width: 680px;
   border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
   // .box-check();
   // border-radius: 5px;

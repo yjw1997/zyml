@@ -19,7 +19,7 @@
       </el-menu-item>
       <el-menu-item index="4">
         <router-link class="a"
-                     to="">示例范用</router-link>
+                     to="/index/sample">示例范用</router-link>
       </el-menu-item>
       <el-menu-item index="5">
         <router-link class="a"
@@ -29,6 +29,20 @@
         <router-link class="a"
                      to="">开发中心</router-link>
       </el-menu-item>
+      <el-submenu index="6"
+                  style="line-height: 44px;"
+                  id="myword">
+        <template slot="title"
+                  id="myword">我的工作台</template>
+        <el-menu-item index="6-1">
+          <router-link class="a"
+                       to="">文档中心</router-link>
+        </el-menu-item>
+        <el-menu-item index="6-2">
+          <router-link class="a"
+                       to="">示例代码</router-link>
+        </el-menu-item>
+      </el-submenu>
       <el-menu-item index="7">
         <router-link class="a"
                      to="/index/help">平台帮助</router-link>
@@ -69,7 +83,7 @@ export default {
   border-bottom: none !important;
   background-color: transparent !important;
   .el-menu-item * {
-    line-height: 44px;
+    line-height: 44px !important;
     vertical-align: top;
   }
   li {
@@ -89,6 +103,14 @@ export default {
 }
 //  点击选中添加的class
 .is-active {
+  color: white !important;
   background-image: url(../../../static/img/frontdesk/banner.png);
+}
+
+.myMenu /deep/ .el-menu--horizontal > .el-submenu .el-submenu__title {
+  height: 44px !important;
+  line-height: 44px !important;
+  border-bottom: 2px solid transparent;
+  color: #909399;
 }
 </style>

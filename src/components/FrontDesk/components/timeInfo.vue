@@ -43,7 +43,7 @@ export default {
   font-weight: 400;
 }
 .day {
-  font-size: 48px;
+  font-size: 38px;
   display: block;
 }
 </style>
