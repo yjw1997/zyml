@@ -16,6 +16,12 @@ export const FrontDesk = [{
       name: 'moreNews',
       component: resolve => require(['@fd/home/components/moreNews'], resolve)
     },
+    //  首页--建议列表
+    {
+      path: '/index/suggest',
+      name: 'suggest',
+      component: resolve => require(['@fd/home/components/suggest'], resolve)
+    },
     //  服务目录
     {
       path: '/index/service',

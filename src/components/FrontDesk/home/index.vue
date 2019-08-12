@@ -264,6 +264,12 @@
     <Footer></Footer>
     <div>
     </div>
+    <img src="@static/img/frontdesk/suggest.png"
+         alt="点击提交建议"
+         width="30px"
+         height="30px"
+         class="suggest"
+         @click="showSuggest">
   </div>
 </template>
 <script>
@@ -290,11 +296,19 @@ export default {
       this.$router.push({
         name: `moreNews`
       })
+    },
+    showSuggest () {
+      this.$router.push({ name: `suggest` })
     }
   }
 }
 </script>
 <style lang="less" scoped>
+.suggest {
+  position: fixed;
+  top: 50%;
+  right: 30px;
+}
 .home {
   width: 1920px;
   .banner {

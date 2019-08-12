@@ -25,15 +25,15 @@
         <router-link class="a"
                      to="">专题地图</router-link>
       </el-menu-item>
-      <el-menu-item index="6">
+      <!-- <el-menu-item index="6">
         <router-link class="a"
                      to="">开发中心</router-link>
-      </el-menu-item>
+      </el-menu-item> -->
       <el-submenu index="6"
                   style="line-height: 44px;"
                   id="myword">
         <template slot="title"
-                  id="myword">我的工作台</template>
+                  id="myword">开发中心</template>
         <el-menu-item index="6-1">
           <router-link class="a"
                        to="">文档中心</router-link>
@@ -111,6 +111,6 @@ export default {
   height: 44px !important;
   line-height: 44px !important;
   border-bottom: 2px solid transparent;
-  color: #909399;
+  color: white;
 }
 </style>
