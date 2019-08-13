@@ -28,6 +28,12 @@ export const FrontDesk = [{
       name: 'service',
       component: resolve => require(['@fd/service/index'], resolve)
     },
+    //  服务目录 -- 服务详情
+    {
+      path: '/index/service/serviceDetails',
+      name: 'serviceDetails',
+      component: resolve => require(['@fd/service/components/serviceDetails'], resolve)
+    },
     //  平台帮助
     {
       path: '/index/help',
@@ -46,6 +52,18 @@ export const FrontDesk = [{
       path: '/index/casedetail',
       name: 'casedetail',
       component: resolve => require(['@fd/sample/components/casedetail'], resolve)
+    },
+    //  开发者中心 -- 文档中心
+    {
+      path: '/index/documentCenter',
+      name: 'documentCenter',
+      component: resolve => require(['@fd/development/components/documentCenter'], resolve)
+    },
+    //  开发者中心 -- 示例代码
+    {
+      path: '/index/sampleCode',
+      name: 'sampleCode',
+      component: resolve => require(['@fd/development/components/sampleCode'], resolve)
     }
   ]
 }

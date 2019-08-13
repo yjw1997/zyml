@@ -38,7 +38,10 @@
               <el-tab-pane label="综合排序"
                            name="first">
                 <el-card :body-style="{ padding: '0px' }">
-                  <div class="serviceInfo">
+                  <div class="serviceInfo"
+                       @click="showServiceDetails(item)"
+                       v-for="item in count"
+                       :key="item">
                     <div class="serContent">
                       <img src="@static/img/frontdesk/23456.png"
                            class="image">
@@ -47,69 +50,7 @@
                       <span>提供单位：福州市数字办</span>
                     </div>
                   </div>
-                  <div class="serviceInfo">
-                    <div class="serContent">
-                      <img src="@static/img/frontdesk/23456.png"
-                           class="image">
-                      <span class="serTitle">服务类型：WMIS</span>
-                      <div><span>发布时间：2019-07-29</span><span class="pzy">浏览1234567人</span></div>
-                      <span>提供单位：福州市数字办</span>
-                    </div>
-                  </div>
-                  <div class="serviceInfo">
-                    <div class="serContent">
-                      <img src="@static/img/frontdesk/23456.png"
-                           class="image">
-                      <span class="serTitle">服务类型：WMIS</span>
-                      <div><span>发布时间：2019-07-29</span><span class="pzy">浏览1234567人</span></div>
-                      <span>提供单位：福州市数字办</span>
-                    </div>
-                  </div>
-                  <div class="serviceInfo">
-                    <div class="serContent">
-                      <img src="@static/img/frontdesk/23456.png"
-                           class="image">
-                      <span class="serTitle">服务类型：WMIS</span>
-                      <div><span>发布时间：2019-07-29</span><span class="pzy">浏览1234567人</span></div>
-                      <span>提供单位：福州市数字办</span>
-                    </div>
-                  </div>
-                  <div class="serviceInfo">
-                    <div class="serContent">
-                      <img src="@static/img/frontdesk/23456.png"
-                           class="image">
-                      <span class="serTitle">服务类型：WMIS</span>
-                      <div><span>发布时间：2019-07-29</span><span class="pzy">浏览1234567人</span></div>
-                      <span>提供单位：福州市数字办</span>
-                    </div>
-                  </div>
-                  <div class="serviceInfo">
-                    <div class="serContent">
-                      <img src="@static/img/frontdesk/23456.png"
-                           class="image">
-                      <span class="serTitle">服务类型：WMIS</span>
-                      <div><span>发布时间：2019-07-29</span><span class="pzy">浏览1234567人</span></div>
-                      <span>提供单位：福州市数字办</span>
-                    </div>
-                  </div>
-                  <div class="serviceInfo">
-                    <div class="serContent">
-                      <img src="@static/img/frontdesk/23456.png"
-                           class="image">
-                      <span class="serTitle">服务类型：WMIS</span>
-                      <div><span>发布时间：2019-07-29</span><span class="pzy">浏览1234567人</span></div>
-                      <span>提供单位：福州市数字办</span>
-                    </div>
-                  </div>
-                  <div class="serviceInfo">
-                    <div class="serContent">
-                      <img src="@static/img/frontdesk/23456.png"
-                           class="image">
-                      <span class="serTitle">服务类型：WMIS</span>
-                      <div><span>发布时间：2019-07-29</span><span class="pzy">浏览1234567人</span></div>
-                      <span>提供单位：福州市数字办</span>
-                    </div>
-                  </div>
+
                   <div class="page">
                     <el-pagination @size-change="handleSizeChange"
                                    @current-change="handleCurrentChange"
@@ -191,7 +132,8 @@ export default {
       searchContent: '',
       num: 1000,
       showOrder: 'first',
-      currentPage4: 4
+      currentPage4: 4,
+      count: 8
     }
   },
   methods: {
@@ -209,6 +151,14 @@ export default {
     },
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`)
+    },
+    //  服务详情界面
+    showServiceDetails (id) {
+      console.log(id)
+      this.$router.push({
+        name: `serviceDetails`,
+        params: id
+      })
     }
   }
 }

@@ -36,11 +36,11 @@
                   id="myword">开发中心</template>
         <el-menu-item index="6-1">
           <router-link class="a"
-                       to="">文档中心</router-link>
+                       to="/index/documentCenter">文档中心</router-link>
         </el-menu-item>
         <el-menu-item index="6-2">
           <router-link class="a"
-                       to="">示例代码</router-link>
+                       to="/index/sampleCode">示例代码</router-link>
         </el-menu-item>
       </el-submenu>
       <el-menu-item index="7">

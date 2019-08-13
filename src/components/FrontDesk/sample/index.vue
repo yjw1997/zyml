@@ -153,7 +153,6 @@ export default {
     },
     //  加载更多
     load () {
-      console.log('哥哥你顶到我了')
       console.log(this.loading, this.noMore)
       this.loading = true
       setTimeout(() => {
