@@ -11,37 +11,15 @@
       </el-menu-item>
       <el-menu-item index="2">
         <router-link class="a"
-                     to="/index/service">服务目录</router-link>
+                     to="">电子地图</router-link>
       </el-menu-item>
       <el-menu-item index="3">
         <router-link class="a"
-                     to="">电子地图</router-link>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <router-link class="a"
-                     to="/index/sample">示例范用</router-link>
-      </el-menu-item>
-      <el-menu-item index="5">
-        <router-link class="a"
                      to="">专题地图</router-link>
       </el-menu-item>
-      <el-submenu index="6"
-                  style="line-height: 44px;"
-                  id="myword">
-        <template slot="title"
-                  id="myword">开发中心</template>
-        <el-menu-item index="6-1">
-          <router-link class="a"
-                       to="/index/documentCenter">文档中心</router-link>
-        </el-menu-item>
-        <el-menu-item index="6-2">
-          <router-link class="a"
-                       to="/index/sampleCode">示例代码</router-link>
-        </el-menu-item>
-      </el-submenu>
       <el-menu-item index="7">
         <router-link class="a"
-                     to="/index/help">平台帮助</router-link>
+                     to="/index/help">资源中心</router-link>
       </el-menu-item>
     </el-menu>
   </div>

@@ -22,6 +22,18 @@ export const FrontDesk = [{
       name: 'suggest',
       component: resolve => require(['@fd/home/components/suggest'], resolve)
     },
+    //  登陆
+    {
+      path: '/index/login',
+      name: 'login',
+      component: resolve => require(['@fd/components/login'], resolve)
+    },
+    //  注册
+    {
+      path: '/index/register',
+      name: 'register',
+      component: resolve => require(['@fd/components/register'], resolve)
+    },
     //  服务目录
     {
       path: '/index/service',

@@ -5,16 +5,6 @@
       <img src="@static/img/frontdesk/tdtTitle.png" />
       <img src="@static/img/frontdesk/tdtName.png" />
     </div>
-    <div class="search">
-      <el-input v-model="searchContent"
-                placeholder="请输入搜索关键字"
-                style="width: 200px"></el-input>
-      <el-button>搜索</el-button>
-    </div>
-    <div class="ib logn">
-      <el-button type="text"><span @click="login">登录</span></el-button> <span class="pzy"></span>
-      <el-button type="text"><span @click="register">注册</span></el-button>
-    </div>
     <div class="ib fr bc2"><img src="@static/img/frontdesk/bc2.png"
            width="100%"
            height="100%" /></div>
