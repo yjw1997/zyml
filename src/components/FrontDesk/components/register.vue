@@ -9,7 +9,6 @@
                  type="card">
           <el-tab-pane label="个人注册"
                        name="first">
-
             <el-form :model="registerForm"
                      inline
                      label-width="120px">
@@ -102,18 +101,34 @@
                 <el-input v-model="registerForm.username">
                 </el-input>
               </el-form-item>
-              <el-form-item label="营业执照：">
+              <el-form-item label="营业执照："
+                            class="fl">
+                <el-upload class="upload-demo"
+                           action="https://jsonplaceholder.typicode.com/posts/"
+                           :on-preview="handlePreview"
+                           :on-remove="handleRemove"
+                           :before-remove="beforeRemove"
+                           multiple
+                           :limit="3"
+                           :on-exceed="handleExceed"
+                           :file-list="fileList">
+                  <el-button size="small"
+                             type="primary">点击上传</el-button>
+                  <div slot="tip"
+                       class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                </el-upload>
+              </el-form-item>
+              <el-form-item label="单位名称："
+                            label-width="128px">
                 <el-input v-model="registerForm.username">
                 </el-input>
               </el-form-item>
-              <el-form-item label="单位名称：">
-                <el-input v-model="registerForm.username">
-                </el-input>
-              </el-form-item>
-              <el-form-item label="验证码：">
+              <el-form-item label="验证码："
+                            label-width="70px"
+                            class="fr">
                 <el-input placeholder="验证码"
                           v-model="registerForm.code"
-                          style="width:199px">
+                          style="width:90px">
                   <i slot="prefix"
                      class="el-input__icon el-icon-key"></i>
                 </el-input>
@@ -121,6 +136,10 @@
                            style="margin-left:10px">1234</el-button>
                 <el-button type="text"
                            style="margin-left:10px">看不清</el-button>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary"
+                           style="width:692px">立即注册</el-button>
               </el-form-item>
             </el-form>
           </el-tab-pane>
@@ -143,7 +162,8 @@ export default {
         password: '',
         code: '',
         checked: false
-      }
+      },
+      fileList: []
 
     }
   },
@@ -156,6 +176,18 @@ export default {
     },
     login () {
       this.$router.push({ name: `login` })
+    },
+    handleRemove (file, fileList) {
+      console.log(file, fileList)
+    },
+    handlePreview (file) {
+      console.log(file)
+    },
+    handleExceed (files, fileList) {
+      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
+    },
+    beforeRemove (file, fileList) {
+      return this.$confirm(`确定移除 ${file.name}？`)
     }
   }
 }
@@ -168,7 +200,7 @@ export default {
   background-size: 100% 100%;
   .registerBox {
     width: 1000px;
-    height: 600px;
+    height: 700px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -176,8 +208,8 @@ export default {
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-left: -250px;
-    margin-top: -250px;
+    margin-left: -500px;
+    margin-top: -300px;
     .box-check();
     background-color: #fff;
     .registerTitle {
@@ -193,5 +225,12 @@ export default {
   position: absolute;
   top: 0px;
   right: 0px;
+}
+.upload-demo {
+  width: 200px;
+}
+#register /deep/ .el-tabs__nav {
+  left: 50%;
+  margin-left: -98px;
 }
 </style>

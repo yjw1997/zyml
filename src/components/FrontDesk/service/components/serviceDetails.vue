@@ -206,7 +206,7 @@
                       effect="dark"
                       content="点击申请"
                       placement="left-start">
-            <el-button>
+            <el-button @click="applicationData">
               <icon class="iconfont  iconshenqing"></icon>
             </el-button>
           </el-tooltip>
@@ -214,7 +214,7 @@
                       effect="dark"
                       content="点击收藏"
                       placement="left-start">
-            <el-button>
+            <el-button @click="collection">
               <icon class="iconfont  iconxiangzi"></icon>
             </el-button>
           </el-tooltip>
@@ -222,6 +222,53 @@
       </div>
     </div>
     <Footer></Footer>
+    <el-dialog title="服务申请"
+               :visible.sync="showApplication"
+               width="30%"
+               class="tc">
+      <div style="width:63%"
+           class="ib tc">
+        <el-form :model="formInline"
+                 class="demo-form-inline"
+                 label-position="left"
+                 label-width="120px">
+          <el-form-item label="对接系统名称：">
+            <el-select v-model="formInline.system">
+              <el-option label="政务大数据平台"
+                         value="label1"></el-option>
+              <el-option label="时空平台"
+                         value="label2"></el-option>
+              <el-option label="市民服务中心平台"
+                         value="label3"></el-option>
+              <el-option label="其他"
+                         value="label4"></el-option>
+            </el-select>
+            <el-input v-model="formInline.orderName"
+                      :disabled="disabled"
+                      placeholder="请输入对接系统名称"></el-input>
+          </el-form-item>
+          <el-form-item label="应用系统描述：">
+            <el-input type="textarea"
+                      v-model="formInline.user"></el-input>
+          </el-form-item>
+          <el-form-item label="需求描述：">
+            <el-input type="textarea"
+                      v-model="formInline.user"></el-input>
+          </el-form-item>
+        </el-form>
+      </div>
+
+      <span slot="footer"
+            class="dialog-footer">
+        <el-button type="primary"
+                   @click="showApplication = false">提交申请</el-button>
+        <el-button type="success"
+                   @click="showApplication = false">保存</el-button>
+        <el-button @click="showApplication = false">取消</el-button>
+
+      </span>
+    </el-dialog>
+
   </div>
 </template>
 <script>
@@ -238,8 +285,32 @@ export default {
       activeName: 1,
       title: '中国影像地图服务',
       formInline: {
-        user: '111'
+        user: '111',
+        system: '',
+        orderName: ''
+      },
+      showApplication: false,
+      disabled: true
+    }
+  },
+  watch: {
+    'formInline.system': function (newVal, oldVal) {
+      console.log(newVal)
+      if (newVal === 'label4') {
+        this.disabled = false
+      } else {
+        this.disabled = true
       }
+    }
+  },
+  methods: {
+    //  点击申请按钮
+    applicationData () {
+      this.showApplication = true
+    },
+    //  点击收藏
+    collection () {
+      this.$router.push({ name: `collection` })
     }
   }
 }

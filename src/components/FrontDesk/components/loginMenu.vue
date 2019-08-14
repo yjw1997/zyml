@@ -11,7 +11,7 @@
       </el-menu-item>
       <el-menu-item index="2">
         <router-link class="a"
-                     to="">电子地图</router-link>
+                     to="/index/digitalMap">电子地图</router-link>
       </el-menu-item>
       <el-menu-item index="3">
         <router-link class="a"
@@ -19,7 +19,7 @@
       </el-menu-item>
       <el-menu-item index="7">
         <router-link class="a"
-                     to="/index/help">资源中心</router-link>
+                     to="/index/service">服务目录</router-link>
       </el-menu-item>
     </el-menu>
   </div>

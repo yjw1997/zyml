@@ -46,6 +46,12 @@ export const FrontDesk = [{
       name: 'serviceDetails',
       component: resolve => require(['@fd/service/components/serviceDetails'], resolve)
     },
+    //  服务目录 -- 服务详情 -- 收藏界面
+    {
+      path: '/index/service/collection',
+      name: 'collection',
+      component: resolve => require(['@fd/service/components/collection'], resolve)
+    },
     //  平台帮助
     {
       path: '/index/help',
@@ -76,6 +82,12 @@ export const FrontDesk = [{
       path: '/index/sampleCode',
       name: 'sampleCode',
       component: resolve => require(['@fd/development/components/sampleCode'], resolve)
+    },
+    //  电子地图
+    {
+      path: '/index/digitalMap',
+      name: 'digitalMap',
+      component: resolve => require(['@fd/digitalMap/index'], resolve)
     }
   ]
 }
