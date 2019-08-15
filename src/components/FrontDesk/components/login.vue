@@ -81,9 +81,7 @@ export default {
 <style lang="less" scoped>
 #login {
   position: relative;
-  background-image: url("../../.././static/img/frontdesk/bannerImg.png");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+
   .loginBox {
     width: 500px;
     height: 500px;
@@ -98,6 +96,17 @@ export default {
     margin-top: -250px;
     .box-check();
     background-color: #fff;
+  }
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../.././static/img/frontdesk/bannerImg.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    filter: blur(5px);
   }
 }
 </style>

@@ -67,6 +67,9 @@ export default {
       height: 21px;
       .p15();
       border-bottom: 1px solid #999999;
+      &:hover {
+        .box-check();
+      }
     }
   }
 }

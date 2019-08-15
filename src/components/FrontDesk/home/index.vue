@@ -41,7 +41,7 @@
               <TimeInfo class="fl ml25"></TimeInfo>
               <icon class="el-icon-right"></icon>
             </div>
-            <div class="list fl ib pl30">
+            <div class="list fl ib ">
               <ul>
                 <li>争当“先行军” 大力培育发展新动能 <span class="fr">2019-08-09</span></li>
                 <li>争当“先行军” 大力培育发展新动能 <span class="fr">2019-08-09</span></li>
@@ -195,7 +195,7 @@
                  type="card">
           <el-tab-pane label="热点服务"
                        name="first">
-            <div class="platformList">
+            <div class="platformList2">
               <div class="fl br"
                    style="color: #666666">
                 <img src="@static/img/frontdesk/provice.png"
@@ -208,7 +208,7 @@
                 <div class="homeContent3">第二届数字中国建设峰会志愿者全要素全流程演练将于29日举行，目前准备工作已就绪。</div>
               </div>
             </div>
-            <div class="platformList">
+            <div class="platformList2">
               <div class="fl br"
                    style="color: #666666">
                 <img src="@static/img/frontdesk/provice.png"
@@ -230,7 +230,7 @@
                  type="card">
           <el-tab-pane label="示例范用"
                        name="first">
-            <div class="platformList">
+            <div class="platformList2">
               <div class="fl "
                    style="color: #666666">
                 <img src="@static/img/frontdesk/provice.png"
@@ -243,7 +243,7 @@
                 <div class="homeContent3">第二届数字中国建设峰会志愿者全要素全流程演练将于29日举行，目前准备工作已就绪。</div>
               </div>
             </div>
-            <div class="platformList">
+            <div class="platformList2">
               <div class="fl "
                    style="color: #666666">
                 <img src="@static/img/frontdesk/provice.png"
@@ -374,18 +374,31 @@ export default {
 }
 .list li {
   .tl();
-  padding: 15px 0px;
-  width: 680px;
+  padding: 15px 30px;
+  width: 640px;
   border-bottom: 1px rgba(0, 0, 0, 0.1) solid;
-  // .box-check();
   // border-radius: 5px;
   font-size: 16px;
   font-weight: 400;
   color: rgba(102, 102, 102, 1);
+  &:hover {
+    .box-check();
+    border-bottom: none;
+  }
 }
 .platformList {
   .ib();
   .p15();
+  &:hover {
+    .box-check();
+  }
+}
+.platformList2 {
+  .ib();
+  padding: 15px 10px;
+  &:hover {
+    .box-check();
+  }
 }
 .homeTitle2 {
   font-size: 18px;

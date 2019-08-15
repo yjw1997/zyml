@@ -88,6 +88,12 @@ export const FrontDesk = [{
       path: '/index/digitalMap',
       name: 'digitalMap',
       component: resolve => require(['@fd/digitalMap/index'], resolve)
+    },
+    //  二期服务资源目录
+    {
+      path: '/index/service2',
+      name: 'service2',
+      component: resolve => require(['@fd/serviceTwo/index'], resolve)
     }
   ]
 }

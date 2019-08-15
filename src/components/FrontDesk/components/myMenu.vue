@@ -43,6 +43,10 @@
         <router-link class="a"
                      to="/index/help">平台帮助</router-link>
       </el-menu-item>
+      <el-menu-item index="8">
+        <router-link class="a"
+                     to="/index/service2">二期服务资源目录</router-link>
+      </el-menu-item>
     </el-menu>
   </div>
 

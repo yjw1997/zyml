@@ -195,9 +195,7 @@ export default {
 <style lang="less" scoped>
 #register {
   position: relative;
-  background-image: url("../../.././static/img/frontdesk/bannerImg.png");
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
+
   .registerBox {
     width: 1000px;
     height: 700px;
@@ -219,6 +217,17 @@ export default {
       line-height: 34px;
       .tc();
     }
+  }
+  &:before {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url("../../.././static/img/frontdesk/bannerImg.png");
+    background-repeat: no-repeat;
+    filter: blur(5px);
+    background-size: 100% 100%;
   }
 }
 .login {

@@ -6,19 +6,17 @@
       <img src="@static/img/frontdesk/tdtName.png" />
     </div>
     <el-dropdown id="myMenu"
-                 placement="bottom">
-      <i class="el-icon-menu"
+                 placement="bottom"
+                 trigger="click">
+      <i class="iconfont icongouwuche"
          style="font-size:25px"></i>
       <el-dropdown-menu slot="dropdown"
                         class="dropdown">
         <el-dropdown-item>
-          <router-link to="/index/home">首页</router-link>
-        </el-dropdown-item>
-        <el-dropdown-item>
-          <router-link to="/index/service">服务目录</router-link>
-        </el-dropdown-item>
-        <el-dropdown-item>
-          <router-link to="/index/documentCenter">开发者中心</router-link>
+          <el-tree :data="data"
+                   :props="defaultProps"
+                   @node-click="handleNodeClick"
+                   default-expand-all></el-tree>
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
@@ -34,7 +32,28 @@ export default {
   name: 'myNav',
   data () {
     return {
-      searchContent: ''
+      searchContent: '',
+      data: [
+        {
+          label: '申请单条服务',
+          children: [{
+            label: '资源一'
+          }]
+        },
+        {
+          label: '申请融合服务',
+          children: [{
+            label: '资源一'
+          },
+          {
+            label: '资源二'
+          }]
+        }
+      ],
+      defaultProps: {
+        children: 'children',
+        label: 'label'
+      }
     }
   },
   methods: {
@@ -43,6 +62,9 @@ export default {
     },
     register () {
       this.$router.push({ name: `login` })
+    },
+    handleNodeClick (data) {
+      console.log(data)
     }
   }
 }
@@ -84,8 +106,8 @@ export default {
 }
 .dropdown {
   li {
-    float: left;
-    padding: 0px 30px;
+    // float: left;
+    // padding: 0px 30px;
     a {
       .ib();
       width: 100%;
@@ -103,6 +125,10 @@ export default {
   margin-left: 30px;
   width: 25px;
   height: 25px;
+  color: #0186e6;
+}
+.myNav /deep/ .el-tree-node__label {
+  font-size: 16px;
   color: #0186e6;
 }
 </style>

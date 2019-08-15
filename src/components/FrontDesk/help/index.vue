@@ -177,8 +177,10 @@ export default {
         id: 1,
         label: '平台概述',
         children: [{
+          id: 2,
           label: '平台简介'
         }, {
+          id: 3,
           label: '平台总体结构'
         }]
       }
@@ -225,7 +227,8 @@ export default {
   methods: {
     handleNodeClick (data) {
       console.log(data)
-      this.showCon = data.$treeNodeId
+      if (data.id === 1) return false
+      this.showCon = data.id
     },
     // 判断滚动位改变时间线
     handleScroll (e) {

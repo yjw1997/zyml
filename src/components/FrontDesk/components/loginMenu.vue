@@ -78,7 +78,6 @@ export default {
 //  点击选中添加的class
 .is-active {
   color: white !important;
-  background-image: url(../../../static/img/frontdesk/banner.png);
 }
 
 .myMenu /deep/ .el-menu--horizontal > .el-submenu .el-submenu__title {

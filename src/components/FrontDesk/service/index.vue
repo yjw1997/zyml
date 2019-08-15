@@ -43,8 +43,12 @@
                        v-for="item in count"
                        :key="item">
                     <div class="serContent">
-                      <img src="@static/img/frontdesk/23456.png"
-                           class="image">
+                      <div class="zz">
+                        <div class="image">
+                          <img src="@static/img/frontdesk/23456.png">
+                          <div class="zzCon">我是遮罩</div>
+                        </div>
+                      </div>
                       <span class="serTitle">服务类型：WMIS</span>
                       <div><span>发布时间：2019-07-29</span><span class="pzy">浏览1234567人</span></div>
                       <span>提供单位：福州市数字办</span>
@@ -203,10 +207,27 @@ export default {
       color: #666666;
       .ib();
       padding: 5px;
+      position: relative;
       span {
         white-space: nowrap;
       }
     }
   }
+}
+.zz {
+  width: 227px;
+  height: 140px;
+  overflow: hidden;
+  .image {
+    height: 180px;
+    &:hover {
+      margin-top: -40px;
+    }
+  }
+}
+.zzCon {
+  background: rgba(0, 0, 0, 0.4);
+  // opacity: 0.1;
+  color: white;
 }
 </style>
