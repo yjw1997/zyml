@@ -1,31 +1,5 @@
 <template>
-  <div class="myNav">
-    <div class="title">
-      <img src="@static/img/frontdesk/logo.png">
-      <img src="@static/img/frontdesk/tdtTitle.png" />
-      <img src="@static/img/frontdesk/tdtName.png" />
-    </div>
-    <el-dropdown id="myMenu"
-                 placement="bottom"
-                 trigger="click">
-      <i class="iconfont icongouwuche"
-         style="font-size:25px"></i>
-      <el-dropdown-menu slot="dropdown"
-                        class="dropdown">
-        <el-dropdown-item>
-          <el-tree :data="data"
-                   :props="defaultProps"
-                   @node-click="handleNodeClick"
-                   default-expand-all></el-tree>
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
-    <div class="personalCenter">
-      <i class="el-icon-user-solid"
-         style="font-size:25px"></i>
-    </div>
 
-  </div>
 </template>
 <script>
 export default {
