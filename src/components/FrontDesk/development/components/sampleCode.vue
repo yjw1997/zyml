@@ -30,7 +30,9 @@
           </div>
         </div>
         <div class="sampleRight">
-
+          <img src="@static/img/frontdesk/sample.png"
+               width="100%"
+               height="100%">
         </div>
       </div>
     </div>

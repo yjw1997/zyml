@@ -19,7 +19,9 @@
             <el-tree :data="resData"
                      :props="defaultProps2"
                      @node-click="handleNodeClick2"
-                     default-expand-all></el-tree>
+                     default-expand-all
+                     node-key="id"
+                     :default-expanded-keys="[2, 3]"></el-tree>
           </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -53,7 +55,19 @@
                    node-key="id"></el-tree>
         </div>
         <div class="serviceTwoRight">
-          <!-- <img src="@static/img/frontdesk/serviceMap.png"> -->
+
+          <img src="@static/img/frontdesk/lift.gif"
+               class="position1"
+               v-if="show === 1">
+          <img src="@static/img/frontdesk/lift.gif"
+               class="position2"
+               v-if="show === 2">
+          <img src="@static/img/frontdesk/lift.gif"
+               class="position3"
+               v-if="show === 3">
+          <img src="@static/img/frontdesk/lift.gif"
+               class="position4"
+               v-if="show === 4">
         </div>
       </div>
     </div>
@@ -61,11 +75,12 @@
     <!-- //  资源基本信息 -->
     <el-dialog title="资源基本信息"
                :visible.sync="showInfo"
-               width="616px"
+               width="750px"
                label-position="right">
       <el-form :model="formInfo"
                inline
-               label-width="120px">
+               label-width="120px"
+               class="tc">
         <el-form-item label="资源名称：">
           <span>{{formInfo.name1}}</span>
         </el-form-item>
@@ -95,7 +110,8 @@
         </el-form-item>
         <el-form-item>
           <span>
-            <router-link to="/">详细信息>>></router-link>
+            <router-link to="/"
+                         style="color:blue">详细信息>>></router-link>
           </span>
         </el-form-item>
       </el-form>
@@ -108,7 +124,6 @@
     <!-- //  点击资源车 -->
     <el-dialog title="资源车"
                :visible.sync="showResourceS"
-               width="616px"
                label-position="right">
       <div v-if="showStep === 1">
         <div>
@@ -118,9 +133,11 @@
         <div class="resourceTitle">
           申请单条服务
         </div>
-        <div class="resourceCon">
+        <div class="resourceCon"
+             v-for="item in this.resData[0].children"
+             :key="item.id">
           <el-checkbox v-model="checked1"></el-checkbox>
-          <span>资源名：资源一</span>
+          <span>资源名：{{item.label}}</span>
           <span>类型：某某某</span>
           <span>使用范围描述：某某某</span>
           <span>使用时限：某某</span>
@@ -364,11 +381,12 @@ export default {
         name9: ''
       },
       treeData: {},
-      showResourceS: true,
+      showResourceS: false,
       checked: false,
       checked1: false,
       checked2: false,
-      showStep: 1
+      showStep: 1,
+      show: 0
     }
   },
   methods: {
@@ -381,16 +399,18 @@ export default {
       this.treeData = data
       if (data.children !== undefined && data.children.length !== 0) return false
       console.log(data)
-      console.log(data.children)
       //  弹出框数据
       this.showInfo = true
       this.formInfo.name1 = data.label
+      //  显示地图位置
+      this.show = Math.floor(Math.random() * (4 - 1)) + 1
     },
     //  点击加入资源车
     addData () {
       console.log(this.treeData)
       console.log(this.resData[0])
       this.resData[0].children.push({ id: (this.resData[0].children.length) + 1, label: this.treeData.label })
+      console.log('我是菜单数据', this.resData[0])
       this.showInfo = false
       this.$message({
         message: '添加资源车成功',
@@ -438,6 +458,27 @@ export default {
     background-repeat: no-repeat;
     background-size: 120% 120%;
     background-position: -5px -3px;
+    position: relative;
+    .position1 {
+      position: absolute;
+      top: 384px;
+      left: 401px;
+    }
+    .position2 {
+      position: absolute;
+      top: 436px;
+      left: 401px;
+    }
+    .position3 {
+      position: absolute;
+      top: 482px;
+      left: 469px;
+    }
+    .position4 {
+      position: absolute;
+      top: 450px;
+      left: 469px;
+    }
   }
   .w40 {
     width: 40%;
@@ -445,10 +486,13 @@ export default {
   }
 }
 #serviceTwo /deep/ .el-form-item {
-  width: 275px;
+  width: 341px;
 }
 #serviceTwo /deep/ .el-dialog__footer {
   .tc();
+}
+#serviceTwo /deep/ .el-dialog__body {
+  padding: 15px 20px !important;
 }
 .myNav {
   width: 1920px;
@@ -511,6 +555,7 @@ export default {
   font-size: 16px;
   color: #0186e6;
 }
+
 .shopInfo {
   color: #999999;
   font-size: 12px;

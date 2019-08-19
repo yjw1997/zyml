@@ -659,53 +659,53 @@ export const GET = {
       id: 1,
       label: '来源分类',
       children: [{
-          id: 2,
-          label: '数字办'
-        },
-        {
-          id: 3,
-          label: '环保局'
-        },
-        {
-          id: 4,
-          label: '气象局'
-        },
-        {
-          id: 5,
-          label: '水利局'
-        },
-        {
-          id: 6,
-          label: '交管局'
-        },
-        {
-          id: 7,
-          label: '公安局'
-        }
+        id: 2,
+        label: '数字办'
+      },
+      {
+        id: 3,
+        label: '环保局'
+      },
+      {
+        id: 4,
+        label: '气象局'
+      },
+      {
+        id: 5,
+        label: '水利局'
+      },
+      {
+        id: 6,
+        label: '交管局'
+      },
+      {
+        id: 7,
+        label: '公安局'
+      }
       ]
     }, {
       id: 8,
       label: '主题分类',
       children: [{
-          id: 9,
-          label: '基础地理'
-        },
-        {
-          id: 10,
-          label: '城市建设'
-        },
-        {
-          id: 11,
-          label: '经济金融'
-        },
-        {
-          id: 12,
-          label: '资源环境'
-        },
-        {
-          id: 13,
-          label: '教育科技'
-        }
+        id: 9,
+        label: '基础地理'
+      },
+      {
+        id: 10,
+        label: '城市建设'
+      },
+      {
+        id: 11,
+        label: '经济金融'
+      },
+      {
+        id: 12,
+        label: '资源环境'
+      },
+      {
+        id: 13,
+        label: '教育科技'
+      }
       ]
     }]
     return _data
@@ -713,49 +713,49 @@ export const GET = {
   //  获取上级目录信息
   '/getPreviousDirectoryData': (req, res) => {
     let _data = [{
-        id: 1,
-        name: '数字办'
-      },
-      {
-        id: 2,
-        name: '环保局'
-      },
-      {
-        id: 3,
-        name: '气象局'
-      },
-      {
-        id: 4,
-        name: '水利局'
-      },
-      {
-        id: 5,
-        name: '交管局'
-      },
-      {
-        id: 6,
-        name: '公安局'
-      },
-      {
-        id: 7,
-        name: '基础地理'
-      },
-      {
-        id: 8,
-        name: '城市建设'
-      },
-      {
-        id: 9,
-        name: '经济金融'
-      },
-      {
-        id: 10,
-        name: '资源环境'
-      },
-      {
-        id: 11,
-        name: '教育科技'
-      }
+      id: 1,
+      name: '数字办'
+    },
+    {
+      id: 2,
+      name: '环保局'
+    },
+    {
+      id: 3,
+      name: '气象局'
+    },
+    {
+      id: 4,
+      name: '水利局'
+    },
+    {
+      id: 5,
+      name: '交管局'
+    },
+    {
+      id: 6,
+      name: '公安局'
+    },
+    {
+      id: 7,
+      name: '基础地理'
+    },
+    {
+      id: 8,
+      name: '城市建设'
+    },
+    {
+      id: 9,
+      name: '经济金融'
+    },
+    {
+      id: 10,
+      name: '资源环境'
+    },
+    {
+      id: 11,
+      name: '教育科技'
+    }
     ]
     return _data
   },

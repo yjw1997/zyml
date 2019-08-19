@@ -26,10 +26,9 @@
                  :props="defaultProps"
                  @node-click="handleNodeClick"
                  show-checkbox
-                 :default-expanded-keys="[2, 3]"
                  check-strictly
                  ref="tree"
-                 node-key="id"></el-tree>
+                 node-key="catalogId"></el-tree>
       </div>
     </div>
     <div class="right">
@@ -46,68 +45,48 @@
             <div slot="header"
                  class="tl">
               <span>{{metaTitle}}</span>
-              <el-button style="float: right; padding: 3px 0"
-                         type="text">操作按钮</el-button>
+              <el-button style="float: right;"
+                         type="primary"
+                         @click="rewriteInfo">修改目录信息</el-button>
             </div>
-            <el-table :data="tableData"
-                      style="width: 100%"
-                      border>
-              <el-table-column prop="id"
-                               label="目录编号"
-                               align="center"
-                               width="120">
-              </el-table-column>
-              <el-table-column prop="unitCode"
-                               label="目录代码"
-                               align="center"
-                               width="180">
-              </el-table-column>
-              <el-table-column prop="name"
-                               label="目录名称"
-                               align="center"
-                               width="180">
-              </el-table-column>
-              <el-table-column prop="description"
-                               align="center"
-                               label="目录描述"
-                               width="180">
-              </el-table-column>
-              <el-table-column prop="supplier"
-                               label="目录提供方"
-                               align="center"
-                               width="180">
-              </el-table-column>
-              <el-table-column prop="maintain"
-                               align="center"
-                               label="维护单位"
-                               width="180">
-              </el-table-column>
-              <el-table-column prop="createDate"
-                               align="center"
-                               width="160"
-                               label="创建时间">
-              </el-table-column>
-              <el-table-column prop="updateDate"
-                               align="center"
-                               width="160"
-                               label="修改时间">
-              </el-table-column>
-              <el-table-column prop="keyword"
-                               align="center"
-                               label="目录关键字"
-                               width="220">
-              </el-table-column>
-            </el-table>
+            <el-form :model="formInline"
+                     label-width="120px">
+              <el-form-item label="目录编号：">
+                <el-input v-model="formInline.id"
+                          :disabled="true"
+                          placeholder="目录编号"></el-input>
+              </el-form-item>
+              <el-form-item label="目录名称：">
+                <el-input v-model="formInline.dictName"
+                          :disabled="true"
+                          placeholder="目录编号"></el-input>
+              </el-form-item>
+              <el-form-item label="更新时间：">
+                <el-input v-model="formInline.updateTime"
+                          :disabled="true"
+                          placeholder="更新时间"></el-input>
+              </el-form-item>、
+              <el-form-item label="创建时间：">
+                <el-input v-model="formInline.createTime"
+                          :disabled="true"
+                          placeholder="创建时间"></el-input>
+              </el-form-item>
+              <el-form-item label="目录描述：">
+                <el-input v-model="formInline.description"
+                          :disabled="true"
+                          placeholder="目录描述"></el-input>
+              </el-form-item>
+            </el-form>
           </el-card>
         </div>
-        <div class="page">
+        <!-- <div class="page">
           <el-pagination background
                          layout="prev, pager, next"
                          :total="total"
                          :page-size="pageSize"
                          @current-change="changeSize">>
           </el-pagination>
-        </div>
+        </div> -->
       </div>
     </div>
     <!-- //  点击添加目录按钮 -->
@@ -118,17 +97,17 @@
                :model="addDirectoryData"
                label-width="120px">
         <el-form-item label="上级目录：">
-          <el-select v-model="addDirectoryData.previous">
+          <el-select v-model="addDirectoryData.parentId">
             <el-option v-for="item in previousDirectory"
-                       :label="item.name"
-                       :value="item.id"
-                       :key="item.id">
+                       :label="item.catalogName"
+                       :value="item.catalogId"
+                       :key="item.catalogId">
 
             </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="目录名称：">
-          <el-input v-model="addDirectoryData.dirName"></el-input>
+          <el-input v-model="addDirectoryData.catalogName"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer"
@@ -139,11 +118,49 @@
                    @click="addDirectoryS =false">取 消</el-button>
       </span>
     </el-dialog>
+    <!-- //  点击修改目录信息按钮 -->
+    <el-dialog title="修改目录信息"
+               center
+               :visible.sync="rewriteDirectoryS">
+      <el-form :model="formInline2"
+               label-width="120px">
+        <el-form-item label="目录编号：">
+          <el-input v-model="formInline2.id"
+                    placeholder="目录编号"
+                    :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="目录名称：">
+          <el-input v-model="formInline2.dictName"
+                    placeholder="目录编号"></el-input>
+        </el-form-item>
+        <el-form-item label="更新时间：">
+          <el-input v-model="formInline2.updateTime"
+                    placeholder="更新时间"
+                    :disabled="true"></el-input>
+        </el-form-item>、
+        <el-form-item label="创建时间：">
+          <el-input v-model="formInline2.createTime"
+                    placeholder="创建时间"
+                    :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="目录描述：">
+          <el-input v-model="formInline2.description"
+                    placeholder="目录描述"></el-input>
+        </el-form-item>
+        <el-form-item class="tr">
+          <span class="fr">
+            <el-button type="primary"
+                       @click="onSubmit">保存</el-button>
+            <el-button @click="rewriteDirectoryS = false;formInline2 = {}">取消</el-button>
+          </span>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 <script>
 import { async } from 'q'
-import { getTreeData, getAddDirectorySave, getPreviousDirectoryData, getDeleteDirectory, getDirectoryDataInfo } from '@api/admin/myDirectory'
+import { getTreeData, getAddDirectorySave, getPreviousDirectoryData, getDeleteDirectory, getDirectoryDataInfo, getOnSubmit } from '@api/admin/myDirectory'
 export default {
   name: 'directory',
   data () {
@@ -151,20 +168,26 @@ export default {
       treeData: [],
       defaultProps: {
         children: 'children',
-        label: 'label'
+        label: 'catalogName',
+        id: 'catalogId'
       },
       searchDirectory: '',
       metaTitle: '我是标题',
       tableData: [],
       addDirectoryS: false,
       addDirectoryData: {
-        previous: '',
-        dirName: ''
+        parentId: '',
+        catalogName: ''
       },
-      previousDirectory: [],
+      previousDirectory: [
+        { catalogId: '0', catalogName: '无' }
+      ],
       checkedNodes: [],
       total: 0,
-      pageSize: 0
+      pageSize: 0,
+      formInline: {},
+      formInline2: {},
+      rewriteDirectoryS: false
     }
   },
   mounted: async function () {
@@ -178,8 +201,9 @@ export default {
   methods: {
     //  获取目录tree数据
     getDirectoryData: async function () {
-      let res = await getTreeData({ id: 1 })
-      this.treeData = res.data
+      let res = await getTreeData({})
+      console.log('我是tree结构', res)
+      this.treeData = res.data.data
     },
     //  添加目录
     addDirectory: async function () {
@@ -189,30 +213,32 @@ export default {
     },
     //  获取上级目录信息
     getPreviousDirectory: async function () {
-      let res = await getPreviousDirectoryData({ id: 1 })
+      let res = await getPreviousDirectoryData({})
       console.log(res)
-      this.previousDirectory = res.data
+      this.previousDirectory = [...this.previousDirectory, ...res.data]
+      console.log(this.previousDirectory)
     },
     //  添加目录 --- 点击保存
     addDirectorySave: async function () {
       console.log(this.addDirectoryData)
-      let res = await getAddDirectorySave({ data: this.addDirectoryData })
+      let res = await getAddDirectorySave({ parentId: this.addDirectoryData.parentId, catalogName: this.addDirectoryData.catalogName })
+      console.log(res)
       this.$message({
         type: 'success',
         message: '注册成功'
       })
       this.addDirectoryS = false
-      console.log(res)
+      this.getDirectoryData()
     },
     //  点击删除目录按钮
     deleteDirectory: async function () {
       console.log(this.$refs.tree.getCheckedKeys()) // 获取复选框点击选择的数据id数组
+      if (this.$refs.tree.getCheckedKeys().length === 0) return false
       for (var item of this.$refs.tree.getCheckedKeys()) {
         console.log(item)
-        await getDeleteDirectory({ id: item })
-
-        this.getDirectoryData()
+        await getDeleteDirectory({ ids: item })
       }
+      this.getDirectoryData()
       this.$message({
         type: 'success',
         message: '删除成功'
@@ -220,23 +246,45 @@ export default {
     },
     //  点击树节点查看具体信息
     handleNodeClick: async function (data) {
+      if (data.children !== null) return false
       console.log(data) //  nodeData
       //  修改标题信息
-      this.metaTitle = data.label
+      this.metaTitle = data.catalogName
       //  获取目录数据信息
-      let res = await getDirectoryDataInfo({ id: data.id })
-      console.log(res)
-      this.tableData = res.data.list
+      let res = await getDirectoryDataInfo({ id: data.catalogId })
+      this.formInline = res.data.data[0]
     },
-    // 点击分页按钮
-    changeSize: async function (page) {
-      console.log(page)
-      this.pageSize = page
-      let res = await getDirectoryDataInfo({ id: 1, pageSize: this.pageSize })
-      console.log(res)
-      this.tableData = res.data.list
-      this.total = res.data.total
-      this.pageSize = res.data.pageSize
+    // // 点击分页按钮
+    // changeSize: async function (page) {
+    //   console.log(page)
+    //   this.pageSize = page
+    //   let res = await getDirectoryDataInfo({ id: 1, pageSize: this.pageSize })
+    //   console.log(res)
+    //   this.tableData = res.data.list
+    //   this.total = res.data.total
+    //   this.pageSize = res.data.pageSize
+    // },
+    //  点击修改目录信息按钮
+    rewriteInfo: async function () {
+      if (Object.keys(this.formInline).length === 0) return false
+      //  显示弹窗
+      this.rewriteDirectoryS = true
+      //  获取目录数据信息
+      this.formInline2 = this.formInline
+    },
+    //  点击修改目录信息按钮 -- 点击保存按钮
+    onSubmit: async function () {
+      console.log(this.formInline2)
+      // let date = new Date(+new Date() + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+      // this.formInline2.updateTime = date
+      await getOnSubmit({ tSpCatalog: this.formInline2 })
+      this.getDirectoryData()
+      this.$message({
+        type: 'success',
+        message: '更新成功'
+      })
+      //  显示弹窗
+      this.rewriteDirectoryS = false
     }
   }
 }
