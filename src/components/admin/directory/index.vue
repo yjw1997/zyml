@@ -275,16 +275,17 @@ export default {
     //  点击修改目录信息按钮 -- 点击保存按钮
     onSubmit: async function () {
       console.log(this.formInline2)
-      // let date = new Date(+new Date() + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
-      // this.formInline2.updateTime = date
-      await getOnSubmit({ tSpCatalog: this.formInline2 })
-      this.getDirectoryData()
-      this.$message({
-        type: 'success',
-        message: '更新成功'
-      })
-      //  显示弹窗
-      this.rewriteDirectoryS = false
+      let date = Date.parse(new Date())
+      this.formInline2.updateTime = date
+
+      // await getOnSubmit({ tSpCatalog: this.formInline2 })
+      // this.getDirectoryData()
+      // this.$message({
+      //   type: 'success',
+      //   message: '更新成功'
+      // })
+      // //  显示弹窗
+      // this.rewriteDirectoryS = false
     }
   }
 }

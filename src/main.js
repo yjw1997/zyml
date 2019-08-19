@@ -8,6 +8,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import './mock_utils/index'
+import moment from 'moment'
 // // 定义全局变量
 // Vue.prototype.$post = post
 // Vue.prototype.$fetch = fetch
@@ -15,6 +16,7 @@ import './mock_utils/index'
 // Vue.prototype.$put = put // 引用文件
 //  挂载全局变量文件
 import global_ from './static/global'
+Vue.prototype.$moment = moment
 
 // 引入mockjs
 // require('./mock.js')
@@ -31,6 +33,8 @@ Vue.prototype.GLOBAL = global_ // 挂载到Vue实例上面
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>'
 })
