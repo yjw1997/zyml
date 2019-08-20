@@ -1,10 +1,9 @@
-
 // request.js
 import axios from 'axios'
 import qs from 'qs'
 const userData =
   window.sessionStorage.getItem('userData') ||
-  'c29bb254-85af-4fb1-81bd-af0a196114fa'
+  '78e255b6-edc0-48ca-ad72-7385c39d08e5'
 
 /** **** 创建axios实例 ******/
 const service = axios.create({
@@ -21,10 +20,16 @@ service.interceptors.request.use(
       access_token: userData
     }
     // console.log('config1111111', config)
-    // if(token){
-    //   config.params = {'token':token}
-    // }
+    //  get post 请求加入参数access_token
+    if (config.method === 'get' || config.method === 'GET') {
+      config.params.access_token = userData
+      // console.log('我是get')
+    } else if (config.method === 'post' || config.method === 'POST') {
+      // console.log('我是POST')
+      config.data.access_token = userData
+    }
     return config
+
   },
   error => {
     return Promise.reject(error)
@@ -34,7 +39,7 @@ service.interceptors.request.use(
 // http response 拦截器
 service.interceptors.response.use(
   response => {
-    // console.log(response)
+    console.log(response)
     //  如果不存在id字段分页中给他加一个id  防止后台发id1是乱码的情况
     //  如果是分页
     // console.log(response.data.size)
@@ -46,7 +51,7 @@ service.interceptors.response.use(
     //     num++
     //   }
     // }
-
+    console.log(response.data);
     return response
   },
   error => {

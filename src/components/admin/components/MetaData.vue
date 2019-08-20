@@ -9,6 +9,20 @@
         <el-form-item label="数据服务类型："
                       prop="type">
           <el-select v-model="form.type"
+                     placeholder="请选择"
+                     multiple>
+            <el-option-group v-for="group in options"
+                             :key="group.catalogId"
+                             :label="group.catalogName"
+                             :value="group.catalogId">
+              <el-option v-for="item in group.children"
+                         :key="item.catalogId"
+                         :label="item.catalogName"
+                         :value="item.catalogId">
+              </el-option>
+            </el-option-group>
+          </el-select>
+          <!-- <el-select v-model="form.type"
                      placeholder="--请选择--"
                      style="width:200px">
             <el-option label="ADDServer"
@@ -17,7 +31,7 @@
                        value="1"></el-option>
             <el-option label="GPServer"
                        value="2"></el-option>
-          </el-select>
+          </el-select> -->
         </el-form-item>
         <el-form-item label="发布日期：">
           <el-date-picker v-model="form.ReleaseDate"
@@ -391,6 +405,8 @@
   </el-tabs>
 </template>
 <script>
+import { getTreeData } from '@api/admin/myDirectory'
+
 export default {
   name: 'MetaData',
   data () {
@@ -437,8 +453,15 @@ export default {
         suolue: '50*50'
         // access_token:
       },
-      fileList: []
+      fileList: [],
+      options: []
     }
+  },
+  mounted: async function () {
+    //  获取下拉框数据
+    let res = await getTreeData({})
+    console.log('我是tree结构', res.data.data)
+    this.options = res.data.data
   },
   props: {
     form: {
@@ -492,7 +515,7 @@ export default {
     show2: {
       type: Boolean,
       default: false
-    }
+    },
   },
   methods: {
     handleRemove (file, fileList) {

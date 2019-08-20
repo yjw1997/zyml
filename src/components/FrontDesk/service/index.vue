@@ -87,6 +87,8 @@
 import MyNav from '@fc/nav'
 import MyMenu from '@fc/myMenu'
 import Footer from '@fc/footer'
+import { getTreeData } from '@api/admin/myDirectory'
+
 export default {
   name: 'serviceDirectory',
   components: {
@@ -94,44 +96,11 @@ export default {
   },
   data () {
     return {
-      data: [{
-        label: '一级 1',
-        children: [{
-          label: '二级 1-1',
-          children: [{
-            label: '三级 1-1-1'
-          }]
-        }]
-      }, {
-        label: '一级 2',
-        children: [{
-          label: '二级 2-1',
-          children: [{
-            label: '三级 2-1-1'
-          }]
-        }, {
-          label: '二级 2-2',
-          children: [{
-            label: '三级 2-2-1'
-          }]
-        }]
-      }, {
-        label: '一级 3',
-        children: [{
-          label: '二级 3-1',
-          children: [{
-            label: '三级 3-1-1'
-          }]
-        }, {
-          label: '二级 3-2',
-          children: [{
-            label: '三级 3-2-1'
-          }]
-        }]
-      }],
+      data: [],
       defaultProps: {
         children: 'children',
-        label: 'label'
+        label: 'catalogName',
+        id: 'catalogId'
       },
       searchContent: '',
       num: 1000,
@@ -140,7 +109,16 @@ export default {
       count: 8
     }
   },
+  mounted: async function () {
+    this.TreeData()
+  },
   methods: {
+    //  获取左边tree节点数据
+    TreeData: async function () {
+      let res = await getTreeData({})
+      console.log(res)
+      this.data = res.data.data
+    },
     //  点击tree节点
     handleNodeClick (data) {
       console.log(data)

@@ -45,9 +45,8 @@
                          align='center'
                          fixed="left">
         </el-table-column>
-        <el-table-column prop="serId"
+        <el-table-column prop="id"
                          label="编号"
-                         width="55"
                          align='center'>
         </el-table-column>
         <el-table-column prop="serName"
@@ -55,12 +54,12 @@
                          width="177"
                          align='center'>
         </el-table-column>
-        <el-table-column prop="serByName"
+        <el-table-column prop="alias"
                          label="服务别名"
                          width="170"
                          align='center'>
         </el-table-column>
-        <el-table-column prop="serAddress"
+        <el-table-column prop="serUrl"
                          label="服务地址"
                          width="225"
                          align='center'>
@@ -70,14 +69,13 @@
                          width="150"
                          align='center'>
         </el-table-column>
-        <el-table-column prop="updateTime"
+        <el-table-column prop="registerDate"
                          label="申请时间"
                          width="175"
                          align='center'>
         </el-table-column>
         <el-table-column prop="approvalStatus"
                          label="审批状态"
-                         width="85"
                          align='center'
                          :formatter="formatter">
         </el-table-column>
@@ -85,22 +83,22 @@
                          label="操作"
                          width="300">
           <template slot-scope="scope">
-            <el-button @click.native.prevent="preview(scope.row.serId)"
+            <el-button @click.native.prevent="preview(scope.row.id)"
                        type="primary"
                        size="small">
               预览
             </el-button>
-            <el-button @click.native.prevent="writeMetaData(scope.row.serId)"
+            <el-button @click.native.prevent="writeMetaData(scope.row.id)"
                        type="info"
                        size="small">
               元数据
             </el-button>
-            <el-button @click.native.prevent="comment(scope.row.serId)"
+            <el-button @click.native.prevent="comment(scope.row.id)"
                        type="success"
                        size="small">
               评论
             </el-button>
-            <el-button @click.native.prevent="deleteOne(scope.row.serId)"
+            <el-button @click.native.prevent="deleteOne(scope.row.id)"
                        type="danger"
                        size="small">
               退订
@@ -169,7 +167,7 @@
   </div>
 </template>
 <script>
-import { getTableData, ServicePreview } from '@api/admin/myService'
+import { getApplyServiceTableData, ServicePreview } from '@api/admin/myService'
 import ServiceInfo from '@admin/components/serviceInfo'
 import MetaData from '@admin/components/MetaData'
 import { async } from 'q'
@@ -187,7 +185,7 @@ export default {
       },
       form: {},
       tableData: [],
-      pageSize: 3,
+
       total: 7,
       approval: '',
       service: '',
@@ -202,35 +200,37 @@ export default {
       commentShow: false,
       iscomment: false,
       commentContent: '',
-      checked: false
+      checked: false,
+      pageSize: 3,
+      pageNum: 0
     }
   },
   mounted () {
     this.getTable()
   },
   //  监听审批状态服务状态变换改变tabledata
+  //  搜索分页
   watch: {
     formInline: {
       handler: async function (newValue, oldValue) {
-        let pageSize = this.pageSize
         this.approval = newValue.approval
         this.service = newValue.service
-        let res = await getTableData({ page: 1, pageSize, approval: newValue.approval, service: newValue.service, flag: 1 })
+        let res = await getApplyServiceTableData({ pageSize: this.pageSize, pageNum: this.pageNum, approval: newValue.approval, service: newValue.service })
         this.tableData = res.data.list
         this.total = res.data.total
       },
       deep: true
     }
-
   },
   methods: {
     //  获取表格数据
     getTable: async function () {
-      let pageSize = this.pageSize
-      let res = await getTableData({ page: 1, pageSize, approval: this.approval, service: this.service, flag: 1 })
+      let res = await getApplyServiceTableData({ pageSize: this.pageSize, pageNum: this.pageNum })
       console.log(res)
       this.tableData = res.data.list
       this.total = res.data.total
+      this.pageSize = res.data.pageSize
+      this.pageNum = res.data.pageNum
     },
     //  切换我申请的服务和我注册的服务
     changeSerVice (value) {
@@ -244,10 +244,13 @@ export default {
     //  点击分页按钮
     changeSize: async function (page) {
       console.log(page)
-      let pageSize = this.pageSize
-      let res = await getTableData({ page: 1, pageSize, approval: this.approval, service: this.service, flag: 1 })
+      this.pageNum = page
+      let res = await getApplyServiceTableData({ pageSize: this.pageSize, pageNum: this.pageNum })
       console.log(res)
       this.tableData = res.data.list
+      this.total = res.data.total
+      this.pageSize = res.data.pageSize
+      this.pageNum = res.data.pageNum
     },
     //  自定义渲染字段
     formatter (row, column) {

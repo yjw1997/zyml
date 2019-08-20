@@ -56,12 +56,12 @@
               <img src="@static/img/frontdesk/announcement.png"
                    alt="">
               <div class="lcontnet">
-                <TimeInfo class="fl"></TimeInfo>
+                <TimeInfo class="fl mtop"></TimeInfo>
                 <div class="fl ml10 rcontent">
                   <div class="homeTitle">
                     天地图·福建数据更新公告
                   </div>
-                  <div class="rcc"> 第二届数字中国建设峰会志愿者全要素全流程演练将
+                  <div class="rcc">第二届数字中国建设峰会志愿者全要素全流程演练将
                     于29日举行，目前准备工作已就绪。</div>
                 </div>
               </div>
@@ -81,7 +81,7 @@
               <TimeInfo class="fl ml25"></TimeInfo>
               <icon class="el-icon-right"></icon>
             </div>
-            <div class="list fl ib pl30">
+            <div class="list fl ib ">
               <ul>
                 <li>争当“先行军” 大力培育发展新动能 <span class="fr">2019-08-09</span></li>
                 <li>争当“先行军” 大力培育发展新动能 <span class="fr">2019-08-09</span></li>

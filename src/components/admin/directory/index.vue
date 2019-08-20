@@ -59,7 +59,7 @@
               <el-form-item label="目录名称：">
                 <el-input v-model="formInline.dictName"
                           :disabled="true"
-                          placeholder="目录编号"></el-input>
+                          placeholder="目录名称"></el-input>
               </el-form-item>
               <el-form-item label="更新时间：">
                 <el-input v-model="formInline.updateTime"
@@ -248,10 +248,10 @@ export default {
     handleNodeClick: async function (data) {
       if (data.children !== null) return false
       console.log(data) //  nodeData
-      //  修改标题信息
-      this.metaTitle = data.catalogName
       //  获取目录数据信息
       let res = await getDirectoryDataInfo({ id: data.catalogId })
+      //  修改标题信息
+      this.metaTitle = res.data.data[0].dictName
       this.formInline = res.data.data[0]
     },
     // // 点击分页按钮
@@ -275,17 +275,20 @@ export default {
     //  点击修改目录信息按钮 -- 点击保存按钮
     onSubmit: async function () {
       console.log(this.formInline2)
-      let date = Date.parse(new Date())
-      this.formInline2.updateTime = date
-
-      // await getOnSubmit({ tSpCatalog: this.formInline2 })
-      // this.getDirectoryData()
-      // this.$message({
-      //   type: 'success',
-      //   message: '更新成功'
-      // })
-      // //  显示弹窗
-      // this.rewriteDirectoryS = false
+      // let date = Date.parse(new Date())
+      // this.formInline2.updateTime = date
+      this.formInline2.updateTime = new Date(+new Date() + 8 * 3600 * 1000).toISOString().replace(/T/g, ' ').replace(/\.[\d]{3}Z/, '')
+      console.log(this.formInline2)
+      await getOnSubmit(this.formInline2)
+      this.getDirectoryData()
+      //  点击树节点查看具体信息
+      this.handleNodeClick(this.formInline2)
+      this.$message({
+        type: 'success',
+        message: '更新成功'
+      })
+      //  显示弹窗
+      this.rewriteDirectoryS = false
     }
   }
 }

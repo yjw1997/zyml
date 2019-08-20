@@ -61,7 +61,7 @@
                          align='center'
                          fixed="left">
         </el-table-column>
-        <el-table-column prop="serId"
+        <el-table-column prop="id"
                          label="编号"
                          align='center'>
         </el-table-column>
@@ -70,7 +70,7 @@
                          align='center'
                          width="150">
         </el-table-column>
-        <el-table-column prop="serByName"
+        <el-table-column prop="alias"
                          label="服务别名"
                          align='center'
                          width="150">
@@ -80,35 +80,39 @@
                          align='center'
                          width="150">
         </el-table-column>
-        <el-table-column prop="serRegisterTime"
+        <el-table-column prop="registerDate"
                          label="注册时间"
                          align='center'
                          width="200">
         </el-table-column>
-        <el-table-column prop="serUpdateTime"
+        <el-table-column prop="updateDate"
                          label="更新时间"
                          align='center'
                          width="200">
         </el-table-column>
-        <el-table-column prop="serStatus"
+        <el-table-column prop="runTimeStatus"
                          label="服务状态"
-                         align='center'
-                         :formatter="formatter2">
+                         align='center'>
         </el-table-column>
         <el-table-column prop="approvalStatus"
                          label="审批状态"
-                         align='center'
-                         :formatter="formatter">
-        </el-table-column>
-        <el-table-column label="反注册/恢复"
-                         align='center'>
-          <a>反注册</a>
-        </el-table-column>
-        <el-table-column prop="change1"
-                         label="运行/停止"
                          align='center'>
         </el-table-column>
-        <el-table-column prop="serAddress"
+        <el-table-column label="运行/停止"
+                         align='center'>
+          <template slot-scope="scope">
+            <el-button type="success"
+                       size="mini"
+                       v-if="scope.row.runTimeStatus === '停止'"
+                       @click="showOperating(scope.row,0)">运行</el-button>
+            <el-button type="info"
+                       size="mini"
+                       v-if="scope.row.runTimeStatus === '运行'"
+                       @click="showOperating(scope.row,1)">停止</el-button>
+          </template>
+
+        </el-table-column>
+        <el-table-column prop="serUrl"
                          label="服务地址"
                          align='center'
                          width="150">
@@ -121,23 +125,23 @@
             <el-button size="small"
                        type="primary"
                        plain
-                       @click="preview(scope.row.serId)">预览</el-button>
+                       @click="preview(scope.row.id)">预览</el-button>
             <el-button size="small"
                        type="warning"
                        plain
-                       @click="Feedback(scope.row.serId)">反馈</el-button>
+                       @click="Feedback(scope.row.id)">反馈</el-button>
             <el-button size="small"
                        type="info"
                        plain
-                       @click="write(scope.row.serId)">修改</el-button>
+                       @click="write(scope.row.id)">修改</el-button>
             <el-button size="small"
                        type="success"
                        plain
-                       @click="viewUser(scope.row.serId)">用户</el-button>
+                       @click="viewUser(scope.row.id)">用户</el-button>
             <el-button size="small"
                        type="danger"
                        plain
-                       @click="deleteOne(scope.row.serId)">删除</el-button>
+                       @click="deleteOne(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -302,7 +306,7 @@
   </div>
 </template>
 <script>
-import { getTableData, ServicePreview, getSerFeedbackTableData, getViewUserData } from '@api/admin/myService'
+import { getTableData, ServicePreview, getSerFeedbackTableData, getViewUserData, getshowOperating } from '@api/admin/myService'
 import ServiceInfo from '@admin/components/serviceInfo'
 import { async } from 'q'
 import InputList from '../../components/inputlist'
@@ -319,6 +323,7 @@ export default {
         service: '',
         change: '0'
       },
+      pageNum: 1,
       form: {},
       tableData: [],
       pageSize: 3,
@@ -381,11 +386,12 @@ export default {
   methods: {
     //  获取表格数据
     getTable: async function () {
-      let pageSize = this.pageSize
-      let res = await getTableData({ page: 1, pageSize, approval: this.approval, service: this.service, flag: 0 })
+      let res = await getTableData({ pageNum: this.pageNum, pageSize: this.pageSize })
       console.log(res)
       this.tableData = res.data.list
       this.total = res.data.total
+      this.pageNum = res.data.pageNum
+      this.pageSize = res.data.pageSize
     },
     //  切换我申请的服务和我注册的服务
     changeSerVice (value) {
@@ -407,19 +413,22 @@ export default {
     },
     //  自定义渲染字段
     formatter2 (row, column) {
-      if (row.serStatus === '0') {
-        return '运行'
-      } else if (row.serStatus === '1') {
-        return '停止'
-      }
+      // if (row.serStatus === '0') {
+      //   return '运行'
+      // } else if (row.serStatus === '1') {
+      //   return '停止'
+      // }
     },
     //  点击分页按钮
     changeSize: async function (page) {
       console.log(page)
-      this.page = page
-      let res = await getTableData({ page: this.page, pageSize: this.pageSize, approval: this.approval, service: this.service, flag: 0 })
+      this.pageNum = page
+      let res = await getTableData({ pageNum: this.pageNum, pageSize: this.pageSize })
       console.log(res)
       this.tableData = res.data.list
+      this.total = res.data.total
+      this.pageNum = res.data.pageNum
+      this.pageSize = res.data.pageSize
     },
     //  点击复选框按钮
     deleteData (selection, row) {
@@ -443,13 +452,18 @@ export default {
       this.getTable()
     },
 
-    //  ----------------------------点击表格按钮事件----------------------
+    //  ----------------------------点击表格按钮事件-----------------------------------
+    //  点击运行/停止
+    showOperating: async function (data, status) {
+      console.log(data)
+      await getshowOperating({ serviceId: data.id, operation: status })
+      this.getTable()
+    },
     //  预览
     preview: async function (id) {
       this.ServicePreview = true
       console.log(id)
-      let res = await ServicePreview({ id })
-      console.log(res)
+      let res = await ServicePreview({ serviceId: id })
       this.formnoPass = res.data[0]
     },
     //  反馈
@@ -459,6 +473,8 @@ export default {
       let res = await getSerFeedbackTableData({ id })
       console.log(res)
       this.serFeedbackTableData = res.data[0].data
+      //  获取表格数据
+
     },
     //  删除
     deleteOne: async function (id) {
@@ -483,7 +499,6 @@ export default {
     //  用户
     viewUser: async function (id) {
       //  获取表格数据
-      // pageSize: this.pageSize, serName: this.serName, serType: this.serType, startTime: this.startTime, endTime: this.endTime
       let res = await getViewUserData({ pageNum: this.viewUserpageNum, pageSize: this.viewUserpageSize, UserName: this.UserName, startTime: this.startTime, endTime: this.endTime, appStatus: this.appStatus })
       this.viewUserS = true
       console.log('我是用户数据', res)

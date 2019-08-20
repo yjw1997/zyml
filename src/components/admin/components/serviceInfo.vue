@@ -11,7 +11,7 @@
                  label-width="150px"
                  label-position="left">
           <el-form-item label="服务地址：">
-            <el-input v-model="formnoPass.serAddress"
+            <el-input v-model="formnoPass.serUrl"
                       disabled></el-input>
           </el-form-item>
           <el-form-item label="服务类型：">
@@ -27,27 +27,27 @@
                       disabled></el-input>
           </el-form-item>
           <el-form-item label="服务别名：">
-            <el-input v-model="formnoPass.serByName"
+            <el-input v-model="formnoPass.alias"
                       disabled></el-input>
           </el-form-item>
           <el-form-item label="服务Id：">
-            <el-input v-model="formnoPass.serId"
+            <el-input v-model="formnoPass.id"
                       disabled></el-input>
           </el-form-item>
           <el-form-item label="摘要：">
-            <el-input v-model="formnoPass.summary"
-                      disabled></el-input>
-          </el-form-item>
-          <el-form-item label="关键词：">
             <el-input v-model="formnoPass.keyword"
                       disabled></el-input>
           </el-form-item>
+          <el-form-item label="关键词：">
+            <el-input v-model="formnoPass.summary"
+                      disabled></el-input>
+          </el-form-item>
           <el-form-item label="发布单位：">
-            <el-input v-model="formnoPass.publishUnit"
+            <el-input v-model="formnoPass.pubUnit"
                       disabled></el-input>
           </el-form-item>
           <el-form-item label="发布日期：">
-            <el-input v-model="formnoPass.publishDate"
+            <el-input v-model="formnoPass.pubDate"
                       disabled></el-input>
           </el-form-item>
         </el-form>
@@ -61,11 +61,11 @@
                label-position="left"
                :inline="true">
         <el-form-item label="单位名称：">
-          <el-input v-model="formnoPass.unitName"
+          <el-input v-model="formnoPass.pubUnit"
                     disabled></el-input>
         </el-form-item>
         <el-form-item label="单位网址：">
-          <el-input v-model="formnoPass.url"
+          <el-input v-model="formnoPass.unitUrl"
                     disabled></el-input>
         </el-form-item>
         <el-form-item label="国 家 ：">
@@ -80,16 +80,16 @@
           <el-input v-model="formnoPass.city"
                     disabled></el-input>
         </el-form-item>
-        <el-form-item label="详细设计：">
-          <el-input v-model="formnoPass.detailDesign"
+        <el-form-item label="详细地址：">
+          <el-input v-model="formnoPass.address"
                     disabled></el-input>
         </el-form-item>
         <el-form-item label="邮编：">
-          <el-input v-model="formnoPass.postCode"
+          <el-input v-model="formnoPass.postalCode"
                     disabled></el-input>
         </el-form-item>
         <el-form-item label="电话：">
-          <el-input v-model="formnoPass.telephone"
+          <el-input v-model="formnoPass.phone"
                     disabled></el-input>
         </el-form-item>
         <el-form-item label="传真：">
@@ -97,15 +97,15 @@
                     disabled></el-input>
         </el-form-item>
         <el-form-item label="电子邮箱：">
-          <el-input v-model="formnoPass.mailBox"
+          <el-input v-model="formnoPass.email"
                     disabled></el-input>
         </el-form-item>
         <el-form-item label="联系人：">
-          <el-input v-model="formnoPass.contact"
+          <el-input v-model="formnoPass.principal"
                     disabled></el-input>
         </el-form-item>
         <el-form-item label="联系人职位：">
-          <el-input v-model="formnoPass.contactPosition"
+          <el-input v-model="formnoPass.bqdwzz"
                     disabled></el-input>
         </el-form-item>
       </el-form>
@@ -118,13 +118,13 @@
                label-position="left"
                :inline="true">
         <el-form-item label="访问限制：">
-          <el-input v-model="formnoPass.accessLimit"
+          <el-input v-model="formnoPass.use"
                     disabled
                     :rows="3"
                     type="textarea"></el-input>
         </el-form-item>
         <el-form-item label="使用限制：">
-          <el-input v-model="formnoPass.useLimit"
+          <el-input v-model="formnoPass.visit"
                     type="textarea"
                     :rows="3"
                     disabled></el-input>
@@ -141,23 +141,23 @@
                  label-position="left">
 
           <el-form-item label="空间参考系：">
-            <el-input v-model="formnoPass.x"
+            <el-input v-model="formnoPass.spatialReferSystem"
                       disabled></el-input>
           </el-form-item>
           <el-form-item label="空间表示类型：">
-            <el-input v-model="formnoPass.spacetype"
+            <el-input v-model="formnoPass.type"
                       disabled></el-input>
           </el-form-item>
           <el-form-item label="空间分辨率：">
-            <el-input v-model="formnoPass.spaceResolution"
+            <el-input v-model="formnoPass.resolution"
                       disabled></el-input>
           </el-form-item>
           <el-form-item label="专题类型：">
-            <el-input v-model="formnoPass.ThematicType"
+            <el-input v-model="formnoPass.thematicType"
                       disabled></el-input>
           </el-form-item>
           <el-form-item label="其它说明：">
-            <el-input v-model="formnoPass.otherInstructions"
+            <el-input v-model="formnoPass.description"
                       disabled></el-input>
           </el-form-item>
         </el-form>
