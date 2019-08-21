@@ -158,7 +158,7 @@
     <!-- // 点击服务注册按钮 -->
     <el-dialog title="服务注册"
                :visible.sync="dialogVisible"
-               width="800px"
+               width="1100px"
                center>
       <el-steps :active="active"
                 finish-status="success">

@@ -40,41 +40,125 @@
                 <el-card :body-style="{ padding: '0px' }">
                   <div class="serviceInfo"
                        @click="showServiceDetails(item)"
-                       v-for="item in count"
-                       :key="item">
+                       v-for="item in treeInfo"
+                       :key="item.id">
                     <div class="serContent">
                       <div class="zz">
                         <div class="image">
                           <img src="@static/img/frontdesk/23456.png">
-                          <div class="zzCon">我是遮罩</div>
+                          <div class="zzCon">{{item.serName}}</div>
                         </div>
                       </div>
-                      <span class="serTitle">服务类型：WMIS</span>
-                      <div><span>发布时间：2019-07-29</span><span class="pzy">浏览1234567人</span></div>
-                      <span>提供单位：福州市数字办</span>
+                      <span class="serTitle">服务类型：{{item.serType}}</span>
+                      <div><span>发布时间：{{item.pubDate}}</span><span class="pzy">浏览{{item.hits}}人</span></div>
+                      <span>提供单位：{{item.pubUnit}}</span>
                     </div>
                   </div>
-
-                  <div class="page">
-                    <el-pagination @size-change="handleSizeChange"
-                                   @current-change="handleCurrentChange"
-                                   :current-page="currentPage4"
-                                   :page-sizes="[100, 200, 300, 400]"
-                                   :page-size="100"
-                                   layout="total, sizes, prev, pager, next, jumper"
-                                   :total="400">
+                  <!-- //  分页 -->
+                  <div class="page"
+                       v-if="treeInfo.length !== 0">
+                    <el-pagination background
+                                   layout="prev, pager, next"
+                                   :total="total"
+                                   :page-size="pageSize"
+                                   @current-change="changePage">
                     </el-pagination>
                   </div>
                 </el-card>
               </el-tab-pane>
               <el-tab-pane label="浏览次数"
-                           name="second">配置管理</el-tab-pane>
+                           name="second">
+                <el-card :body-style="{ padding: '0px' }">
+                  <div class="serviceInfo"
+                       @click="showServiceDetails(item)"
+                       v-for="item in treeInfo"
+                       :key="item.id">
+                    <div class="serContent">
+                      <div class="zz">
+                        <div class="image">
+                          <img src="@static/img/frontdesk/23456.png">
+                          <div class="zzCon">{{item.serName}}</div>
+                        </div>
+                      </div>
+                      <span class="serTitle">服务类型：{{item.serType}}</span>
+                      <div><span>发布时间：{{item.pubDate}}</span><span class="pzy">浏览{{item.hits}}人</span></div>
+                      <span>提供单位：{{item.pubUnit}}</span>
+                    </div>
+                  </div>
+                  <!-- //  分页 -->
+                  <div class="page"
+                       v-if="treeInfo.length !== 0">
+                    <el-pagination background
+                                   layout="prev, pager, next"
+                                   :total="total"
+                                   :page-size="pageSize"
+                                   @current-change="changePage">
+                    </el-pagination>
+                  </div>
+                </el-card>
+              </el-tab-pane>
               <el-tab-pane label="发布时间"
-                           name="third">角色管理</el-tab-pane>
+                           name="third">
+                <el-card :body-style="{ padding: '0px' }">
+                  <div class="serviceInfo"
+                       @click="showServiceDetails(item)"
+                       v-for="item in treeInfo"
+                       :key="item.id">
+                    <div class="serContent">
+                      <div class="zz">
+                        <div class="image">
+                          <img src="@static/img/frontdesk/23456.png">
+                          <div class="zzCon">{{item.serName}}</div>
+                        </div>
+                      </div>
+                      <span class="serTitle">服务类型：{{item.serType}}</span>
+                      <div><span>发布时间：{{item.pubDate}}</span><span class="pzy">浏览{{item.hits}}人</span></div>
+                      <span>提供单位：{{item.pubUnit}}</span>
+                    </div>
+                  </div>
+                  <!-- //  分页 -->
+                  <div class="page"
+                       v-if="treeInfo.length !== 0">
+                    <el-pagination background
+                                   layout="prev, pager, next"
+                                   :total="total"
+                                   :page-size="pageSize"
+                                   @current-change="changePage">
+                    </el-pagination>
+                  </div>
+                </el-card>
+              </el-tab-pane>
               <el-tab-pane label="A-Z"
-                           name="fourth">定时任务补偿</el-tab-pane>
-              <el-tab-pane label="下载次数"
-                           name="five">定时任务补偿</el-tab-pane>
+                           name="fourth">
+                <el-card :body-style="{ padding: '0px' }">
+                  <div class="serviceInfo"
+                       @click="showServiceDetails(item)"
+                       v-for="item in treeInfo"
+                       :key="item.id">
+                    <div class="serContent">
+                      <div class="zz">
+                        <div class="image">
+                          <img src="@static/img/frontdesk/23456.png">
+                          <div class="zzCon">{{item.serName}}</div>
+                        </div>
+                      </div>
+                      <span class="serTitle">服务类型：{{item.serType}}</span>
+                      <div><span>发布时间：{{item.pubDate}}</span><span class="pzy">浏览{{item.hits}}人</span></div>
+                      <span>提供单位：{{item.pubUnit}}</span>
+                    </div>
+                  </div>
+                  <!-- //  分页 -->
+                  <div class="page"
+                       v-if="treeInfo.length !== 0">
+                    <el-pagination background
+                                   layout="prev, pager, next"
+                                   :total="total"
+                                   :page-size="pageSize"
+                                   @current-change="changePage">
+                    </el-pagination>
+                  </div>
+                </el-card>
+              </el-tab-pane>
             </el-tabs>
           </div>
         </div>
@@ -88,7 +172,8 @@ import MyNav from '@fc/nav'
 import MyMenu from '@fc/myMenu'
 import Footer from '@fc/footer'
 import { getTreeData } from '@api/admin/myDirectory'
-
+import { getTreeDataInfo, getSaveVisitNum } from '@api/frontdesk/myService'
+import { async } from 'q';
 export default {
   name: 'serviceDirectory',
   components: {
@@ -106,7 +191,13 @@ export default {
       num: 1000,
       showOrder: 'first',
       currentPage4: 4,
-      count: 8
+      count: 8,
+      pageNum: 1,
+      pageSize: 3,
+      total: 0,
+      treeInfo: [],
+      label: '',
+      paramName: 'id'
     }
   },
   mounted: async function () {
@@ -116,30 +207,46 @@ export default {
     //  获取左边tree节点数据
     TreeData: async function () {
       let res = await getTreeData({})
-      console.log(res)
       this.data = res.data.data
     },
     //  点击tree节点
-    handleNodeClick (data) {
+    handleNodeClick: async function (data) {
       console.log(data)
+      this.label = data.catalogName
+      let res = await getTreeDataInfo({ label: this.label, pageNum: this.pageNum, pageSize: this.pageSize, paramName: this.paramName })
+      this.treeInfo = res.data.list
+      this.total = res.data.total
+      this.pageSize = res.data.pageSize
+      this.pageNum = res.data.pageNum
     },
     //  点击切换标签页
     handleClick (tab, event) {
-      console.log(tab, event)
+      console.log(tab.label)
+      if (tab.label === '浏览次数') {
+        this.paramName = 'hits'
+      } else if (tab.label === '发布时间') {
+        this.paramName = 'pub_date'
+      }
     },
     // -------------分页---------------------
-    handleSizeChange (val) {
-      console.log(`每页 ${val} 条`)
-    },
-    handleCurrentChange (val) {
-      console.log(`当前页: ${val}`)
+    changePage: async function (page) {
+      console.log(page)
+      this.pageNum = page
+      let res = await getTreeDataInfo({ label: this.label, pageNum: this.pageNum, pageSize: this.pageSize, paramName: this.paramName })
+      console.log(res)
+      this.treeInfo = res.data.list
+      this.total = res.data.total
+      this.pageSize = res.data.pageSize
+      this.pageNum = res.data.pageNum
     },
     //  服务详情界面
-    showServiceDetails (id) {
-      console.log(id)
+    showServiceDetails: async function (item) {
+      console.log(item)
+      //  浏览量  /ServiceManager/saveVisitNum
+      let res = await getSaveVisitNum({ serviceId: item.id })
       this.$router.push({
         name: `serviceDetails`,
-        params: id
+        params: item
       })
     }
   }

@@ -228,7 +228,7 @@
       <div class="w33 ib ml40">
         <el-tabs v-model="activeName"
                  type="card">
-          <el-tab-pane label="示例范用"
+          <el-tab-pane label="示范应用"
                        name="first">
             <div class="platformList2">
               <div class="fl "

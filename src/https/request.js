@@ -3,7 +3,7 @@ import axios from 'axios'
 import qs from 'qs'
 const userData =
   window.sessionStorage.getItem('userData') ||
-  '78e255b6-edc0-48ca-ad72-7385c39d08e5'
+  '8af152d8-b1b4-4e15-b2fb-eae3708183ec'
 
 /** **** 创建axios实例 ******/
 const service = axios.create({
@@ -51,7 +51,6 @@ service.interceptors.response.use(
     //     num++
     //   }
     // }
-    console.log(response.data);
     return response
   },
   error => {
