@@ -43,7 +43,7 @@
         </el-form-item>
         <el-form-item class="fr">
           <el-button type="primary"
-                     @click="dialogVisible = true;active = 0">服务注册</el-button>
+                     @click="resService">服务注册</el-button>
         </el-form-item>
         <el-form-item class="fr">
           <el-button type="primary"
@@ -189,7 +189,7 @@
                    @click="active++"
                    v-if="active !== 1">下一步</el-button>
         <el-button type="primary"
-                   @click="active = 0;dialogVisible = false"
+                   @click="resServiceSave"
                    v-if="active === 1">完成</el-button>
       </span>
     </el-dialog>
@@ -306,7 +306,7 @@
   </div>
 </template>
 <script>
-import { getTableData, ServicePreview, getSerFeedbackTableData, getViewUserData, getshowOperating } from '@api/admin/myService'
+import { getTableData, ServicePreview, getSerFeedbackTableData, getViewUserData, getshowOperating, addResService } from '@api/admin/myService'
 import ServiceInfo from '@admin/components/serviceInfo'
 import { async } from 'q'
 import InputList from '../../components/inputlist'
@@ -324,7 +324,190 @@ export default {
         change: '0'
       },
       pageNum: 1,
-      form: {},
+      form: {
+        "irmDataDescription": [
+          {
+            "description": "",
+            "id": "",
+            "resolution": "",
+            "spatialReferSystem": "",
+            "thematicType": "",
+            "type": ""
+          }
+        ],
+        "irmFeatureType": [
+          {
+            "alias": "",
+            "cloumn": "",
+            "coordinateSystem": "",
+            "format": "",
+            "id": "",
+            "keyword": "",
+            "name": "",
+            "otherCoordinate": "",
+            "summary": ""
+          }
+        ],
+        "irmLayerInfo": [
+          {
+            "alias": "",
+            "id": "",
+            "layerName": "",
+            "state": "",
+            "style": ""
+          }
+        ],
+        "irmLayerMeta": [
+          {
+            "attField": "",
+            "attField2": "",
+            "className": "",
+            "createDate": "",
+            "dataFileName": "",
+            "description": "",
+            "elemNum": "",
+            "format": "",
+            "formatVersion": "",
+            "id": "",
+            "layerName": "",
+            "level": "",
+            "mdCharacter": "",
+            "mdLanguage": "",
+            "productDate": "",
+            "productName": "",
+            "referenceSystem": "",
+            "sort": "",
+            "type": "",
+            "unit": "",
+            "updateDate": "",
+            "version": ""
+          }
+        ],
+        "irmParamDescription": [
+          {
+            "id": "",
+            "isNeed": "",
+            "isRepeat": "",
+            "paramDesc": "",
+            "paramDirection": "",
+            "paramName": "",
+            "range": ""
+          }
+        ],
+        "irmScalarSupport": [
+          {
+            "comparisonOpera": "",
+            "countOpera": "",
+            "id": "",
+            "logicalOpera": ""
+          }
+        ],
+        "irmSerOperation": [
+          {
+            "description": "",
+            "distributedPlatform": "",
+            "id": "",
+            "operaName": "",
+            "url": ""
+          }
+        ],
+        "irmSerUseLimit": [
+          {
+            "id": "",
+            "use": "",
+            "visit": ""
+          }
+        ],
+        "irmServiceInfo": [
+          {
+            "address": "",
+            "alias": "",
+            "applyNum": 0,
+            "bqdw": "",
+            "bqdwzz": "",
+            "city": "",
+            "country": "",
+            "dataPermit": 0,
+            "dataScopes": "",
+            "dataSource": "",
+            "dataType": "",
+            "delete": 0,
+            "description": "",
+            "email": "",
+            "fax": "",
+            "fgfw": "",
+            "hits": 0,
+            "id": "",
+            "keyword": "",
+            "local": "",
+            "operation": "",
+            "oriServiceUrl": "",
+            "phone": "",
+            "postalCode": "",
+            "principal": "",
+            "province": "",
+            "pubDate": "",
+            "pubUnit": "",
+            "runTimeStatus": 0,
+            "scdw": "",
+            "serName": "",
+            "serType": " ",
+            "serUrl": "",
+            "summary": "",
+            "thumbnail": "",
+            "unitUrl": "",
+            "updateDate": "",
+            "userCode": "",
+            "version": "",
+            "xsx": ""
+          }
+        ],
+        "irmServiceInstance": [
+          {
+            "description": "",
+            "id": "",
+            "url": ""
+          }
+        ],
+        "irmServiceRange": [
+          {
+            "coordinate": "",
+            "id": "",
+            "maxX": "",
+            "maxY": "",
+            "minX": "",
+            "minY": ""
+          }
+        ],
+        "irmSliceInfo": [
+          {
+            "cutCoordinate": "",
+            "format": "",
+            "id": "",
+            "identity": ""
+          }
+        ],
+        "irmSpaceSupport": [
+          {
+            "geometryType": "",
+            "id": "",
+            "spaceOperator": ""
+          }
+        ],
+        "irmTileInfo": [
+          {
+            "id": "",
+            "leftCornerCoordinates": "",
+            "level": "",
+            "resolution": "",
+            "scale": "",
+            "tileColumnNum": 0,
+            "tileHeight": "",
+            "tileRowNum": 0,
+            "tileWidth": ""
+          }
+        ]
+      },
       tableData: [],
       pageSize: 3,
       total: 7,
@@ -451,7 +634,27 @@ export default {
       })
       this.getTable()
     },
+    //  点击服务注册按钮
+    resService: async function () {
+      this.dialogVisible = true
+      this.active = 0
+      //  获取表格信息
 
+    },
+    //服务注册 --  点击保存按钮
+    resServiceSave: async function () {
+      console.log(this.form)
+      // this.active = 0
+
+      // this.dialogVisible = false
+      let data = await addResService(this.form)
+
+      console.log(data)
+      // this.$message({
+      //   message: '注册成功',
+      //   type: 'success'
+      // });
+    },
     //  ----------------------------点击表格按钮事件-----------------------------------
     //  点击运行/停止
     showOperating: async function (data, status) {

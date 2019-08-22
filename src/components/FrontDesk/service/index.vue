@@ -31,7 +31,7 @@
                         style="width: 891px"></el-input>
               <el-button type="primary">搜索</el-button>
             </div>
-            <div class="psx count">共找到{{num}}个</div>
+            <div class="psx count">共找到{{total}}个</div>
             <el-tabs v-model="showOrder"
                      type="card"
                      @tab-click="handleClick">
@@ -166,6 +166,7 @@
     </div>
     <Footer></Footer>
   </div>
+
 </template>
 <script>
 import MyNav from '@fc/nav'
@@ -196,12 +197,14 @@ export default {
       pageSize: 3,
       total: 0,
       treeInfo: [],
-      label: '',
+      label: 'WMTS',
       paramName: 'id'
     }
   },
   mounted: async function () {
     this.TreeData()
+    //  刷新时原始数据
+    this.handleNodeClick({ catalogName: 'WMTS' })
   },
   methods: {
     //  获取左边tree节点数据
@@ -211,6 +214,7 @@ export default {
     },
     //  点击tree节点
     handleNodeClick: async function (data) {
+      if (data.children !== null && data.children !== undefined) return false
       console.log(data)
       this.label = data.catalogName
       let res = await getTreeDataInfo({ label: this.label, pageNum: this.pageNum, pageSize: this.pageSize, paramName: this.paramName })
@@ -220,13 +224,18 @@ export default {
       this.pageNum = res.data.pageNum
     },
     //  点击切换标签页
-    handleClick (tab, event) {
+    handleClick: async function (tab, event) {
       console.log(tab.label)
       if (tab.label === '浏览次数') {
         this.paramName = 'hits'
       } else if (tab.label === '发布时间') {
         this.paramName = 'pub_date'
       }
+      let res = await getTreeDataInfo({ label: this.label, pageNum: this.pageNum, pageSize: this.pageSize, paramName: this.paramName })
+      this.treeInfo = res.data.list
+      this.total = res.data.total
+      this.pageSize = res.data.pageSize
+      this.pageNum = res.data.pageNum
     },
     // -------------分页---------------------
     changePage: async function (page) {

@@ -48,3 +48,11 @@ export const getshowOperating = data => {
     params: data
   })
 }
+//  点击注册
+export const addResService = data => {
+  return service({
+    url: '/ServiceManager/addServer',
+    method: 'post',
+    data: data
+  })
+}

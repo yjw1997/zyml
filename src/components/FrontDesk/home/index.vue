@@ -15,6 +15,7 @@
             <div class="fl pr">
               <img src="@static/img/frontdesk/announcement.png"
                    alt="">
+
               <div class="lcontnet">
                 <TimeInfo class="fl mtop"></TimeInfo>
                 <div class="fl ml10 rcontent">
